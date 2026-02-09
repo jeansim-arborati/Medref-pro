@@ -2,2419 +2,1376 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="MedRef Pro">
-    <meta name="theme-color" content="#0f172a">
-    <title>MedRef Pro - Fiches Médicales Professionnelles</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-192.png">
-    
-    <!-- Fonts -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedRef Pro — Banque d'Images Médicales</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Couleurs principales - Palette médicale sophistiquée */
-            --bg-base: #0f172a;
-            --bg-surface: #1e293b;
-            --bg-elevated: #334155;
-            --bg-card: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-            --bg-card-hover: linear-gradient(145deg, #334155 0%, #1e293b 100%);
-            
-            /* Accents */
-            --accent-primary: #38bdf8;
-            --accent-secondary: #818cf8;
-            --accent-tertiary: #34d399;
-            --accent-warm: #fb923c;
-            --accent-rose: #f472b6;
-            
-            /* Gradients */
-            --gradient-primary: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
-            --gradient-success: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
-            --gradient-warm: linear-gradient(135deg, #fb923c 0%, #f472b6 100%);
-            --gradient-card: linear-gradient(145deg, rgba(56, 189, 248, 0.1) 0%, rgba(129, 140, 248, 0.05) 100%);
-            
-            /* Texte */
-            --text-primary: #f8fafc;
+            --bg-deep: #0b0f1a;
+            --bg-card: #111827;
+            --bg-elevated: #1a2234;
+            --bg-hover: #1e2a3f;
+            --border: #1e293b;
+            --border-accent: #334155;
+            --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
-            --text-inverse: #0f172a;
-            
-            /* Bordures & Effets */
-            --border-subtle: rgba(148, 163, 184, 0.1);
-            --border-accent: rgba(56, 189, 248, 0.3);
-            --glow-primary: 0 0 40px rgba(56, 189, 248, 0.15);
-            --glow-accent: 0 0 60px rgba(56, 189, 248, 0.2);
-            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-            --shadow-elevated: 0 12px 48px rgba(0, 0, 0, 0.4);
-            
-            /* Espacements */
-            --space-xs: 4px;
-            --space-sm: 8px;
-            --space-md: 16px;
-            --space-lg: 24px;
-            --space-xl: 32px;
-            --space-2xl: 48px;
-            --space-3xl: 64px;
-            
-            /* Rayons */
-            --radius-sm: 8px;
-            --radius-md: 12px;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.15);
+            --accent-warm: #f59e0b;
+            --success: #34d399;
+            --danger: #f87171;
+            --tag-bg: rgba(56, 189, 248, 0.1);
+            --tag-border: rgba(56, 189, 248, 0.25);
+            --radius: 10px;
             --radius-lg: 16px;
-            --radius-xl: 24px;
-            --radius-full: 9999px;
-            
-            /* Transitions */
-            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            
-            /* Safe areas iOS */
-            --safe-top: env(safe-area-inset-top);
-            --safe-bottom: env(safe-area-inset-bottom);
+            --shadow: 0 4px 24px rgba(0,0,0,0.3);
+            --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-            background: var(--bg-base);
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-deep);
             color: var(--text-primary);
             min-height: 100vh;
-            min-height: 100dvh;
-            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Scrollbar élégante */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--text-muted);
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-secondary);
-        }
-
-        /* Selection */
-        ::selection {
-            background: var(--accent-primary);
-            color: var(--text-inverse);
-        }
-
-        #root {
-            min-height: 100vh;
-            min-height: 100dvh;
-        }
-
-        /* ============================================
-           LAYOUT PRINCIPAL
-           ============================================ */
-        .app {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            min-height: 100dvh;
-            position: relative;
-        }
-
-        /* Background effet */
-        .app::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 60vh;
-            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.15) 0%, transparent 70%),
-                        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(129, 140, 248, 0.1) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Container responsive */
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-md);
-        }
-
-        @media (min-width: 768px) {
-            .container {
-                padding: 0 var(--space-xl);
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .container {
-                padding: 0 var(--space-2xl);
-            }
-        }
-
-        /* ============================================
-           HEADER
-           ============================================ */
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding-top: calc(var(--safe-top) + var(--space-md));
-            padding-bottom: var(--space-lg);
-            background: linear-gradient(to bottom, 
-                var(--bg-base) 0%, 
-                var(--bg-base) 60%, 
-                rgba(15, 23, 42, 0) 100%);
+        /* ============ HEADER ============ */
+        .app-header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(11, 15, 26, 0.85);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
         }
-
-        .header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: var(--space-md);
+        .header-top {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 0 12px;
+            max-width: 1600px; margin: 0 auto;
         }
-
         .logo {
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
+            display: flex; align-items: baseline; gap: 8px;
         }
-
         .logo-mark {
-            width: 48px;
-            height: 48px;
-            background: var(--gradient-primary);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--glow-primary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo-mark::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
-        }
-
-        .logo-mark svg {
-            width: 26px;
-            height: 26px;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo-title {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: 24px;
-            font-weight: 600;
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.7rem;
+            color: var(--accent);
             letter-spacing: -0.02em;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
-
-        .logo-subtitle {
-            font-size: 11px;
-            font-weight: 500;
+        .logo-sub {
+            font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
+            font-weight: 500;
         }
-
-        /* Header Actions */
         .header-actions {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
+            display: flex; align-items: center; gap: 8px;
         }
 
-        .btn-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: var(--radius-md);
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition-base);
+        /* ============ TOOLBAR ============ */
+        .toolbar {
+            max-width: 1600px; margin: 0 auto;
+            padding: 0 0 14px;
+            display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
         }
-
-        .btn-icon:hover, .btn-icon:active {
-            background: var(--bg-elevated);
-            color: var(--text-primary);
-            border-color: var(--border-accent);
-        }
-
-        .btn-icon svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* ============================================
-           HERO SECTION
-           ============================================ */
-        .hero {
-            padding: var(--space-lg) 0 var(--space-2xl);
+        .search-box {
+            flex: 1; min-width: 260px;
             position: relative;
-            z-index: 1;
         }
-
-        .hero-content {
-            max-width: 600px;
+        .search-box svg {
+            position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+            color: var(--text-muted); width: 18px; height: 18px; pointer-events: none;
         }
-
-        .hero-title {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(28px, 5vw, 42px);
-            font-weight: 600;
-            line-height: 1.2;
-            margin-bottom: var(--space-md);
-            letter-spacing: -0.02em;
-        }
-
-        .hero-title span {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-description {
-            font-size: 16px;
-            color: var(--text-secondary);
-            margin-bottom: var(--space-xl);
-            max-width: 480px;
-        }
-
-        /* Search Bar */
-        .search-wrapper {
-            position: relative;
-            max-width: 560px;
-        }
-
-        .search-bar {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xs);
-            transition: var(--transition-base);
-            box-shadow: var(--shadow-card);
-        }
-
-        .search-bar:focus-within {
-            border-color: var(--accent-primary);
-            box-shadow: var(--shadow-card), 0 0 0 4px rgba(56, 189, 248, 0.1);
-        }
-
-        .search-icon {
-            padding: var(--space-md);
-            color: var(--text-muted);
-        }
-
-        .search-input {
-            flex: 1;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 16px;
-            font-family: inherit;
-            padding: var(--space-md) 0;
-            outline: none;
-        }
-
-        .search-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .search-kbd {
-            display: none;
-            padding: var(--space-xs) var(--space-sm);
-            background: var(--bg-elevated);
-            border-radius: var(--radius-sm);
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-right: var(--space-md);
-        }
-
-        @media (min-width: 768px) {
-            .search-kbd {
-                display: block;
-            }
-        }
-
-        /* ============================================
-           STATS CARDS
-           ============================================ */
-        .stats-section {
-            padding: var(--space-lg) 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-md);
-        }
-
-        @media (min-width: 768px) {
-            .stats-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-
-        .stat-card {
+        .search-box input {
+            width: 100%; padding: 10px 14px 10px 42px;
             background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition-base);
-        }
-
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-primary);
-            opacity: 0;
-            transition: var(--transition-base);
-        }
-
-        .stat-card:hover::before {
-            opacity: 1;
-        }
-
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: var(--space-md);
-        }
-
-        .stat-icon.blue { background: rgba(56, 189, 248, 0.15); color: var(--accent-primary); }
-        .stat-icon.purple { background: rgba(129, 140, 248, 0.15); color: var(--accent-secondary); }
-        .stat-icon.green { background: rgba(52, 211, 153, 0.15); color: var(--accent-tertiary); }
-        .stat-icon.orange { background: rgba(251, 146, 60, 0.15); color: var(--accent-warm); }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: var(--space-xs);
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        /* ============================================
-           CATEGORIES FILTER
-           ============================================ */
-        .categories-section {
-            padding: var(--space-md) 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .categories-scroll {
-            display: flex;
-            gap: var(--space-sm);
-            overflow-x: auto;
-            padding-bottom: var(--space-md);
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .categories-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
-        .category-chip {
-            flex: 0 0 auto;
-            padding: var(--space-sm) var(--space-lg);
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-full);
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 500;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            font-size: 0.9rem;
             font-family: inherit;
+            transition: border var(--transition);
+        }
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        .search-box input::placeholder { color: var(--text-muted); }
+
+        /* ============ FILTER CHIPS ============ */
+        .filter-row {
+            max-width: 1600px; margin: 0 auto;
+            padding: 0 0 14px;
+            display: flex; gap: 6px; flex-wrap: wrap;
+            overflow-x: auto;
+        }
+        .chip {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
             cursor: pointer;
-            transition: var(--transition-base);
+            white-space: nowrap;
+            transition: all var(--transition);
+            font-family: inherit;
+        }
+        .chip:hover { border-color: var(--text-muted); color: var(--text-primary); }
+        .chip.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-deep);
+        }
+        .chip .count {
+            display: inline-block;
+            margin-left: 4px;
+            font-size: 0.68rem;
+            opacity: 0.7;
+        }
+
+        /* ============ STATS BAR ============ */
+        .stats-bar {
+            max-width: 1600px; margin: 0 auto;
+            padding: 20px 24px;
+            display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+            justify-content: space-between;
+        }
+        .stats-left {
+            display: flex; gap: 24px; align-items: center;
+        }
+        .stat-item {
+            display: flex; align-items: baseline; gap: 6px;
+        }
+        .stat-value {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+        .view-toggles {
+            display: flex; gap: 4px;
+        }
+        .view-btn {
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: inherit;
+        }
+        .view-btn:hover { border-color: var(--text-muted); color: var(--text-primary); }
+        .view-btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg-deep); }
+
+        /* ============ BUTTONS ============ */
+        .btn {
+            padding: 9px 16px;
+            border-radius: var(--radius);
+            font-size: 0.82rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 6px;
+            transition: all var(--transition);
+            font-family: inherit;
             white-space: nowrap;
         }
-
-        .category-chip:hover {
-            background: var(--bg-elevated);
-            color: var(--text-primary);
+        .btn:hover { border-color: var(--text-muted); color: var(--text-primary); background: var(--bg-elevated); }
+        .btn-accent {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-deep);
         }
+        .btn-accent:hover { background: #67d4fc; border-color: #67d4fc; }
+        .btn-danger { border-color: var(--danger); color: var(--danger); }
+        .btn-danger:hover { background: rgba(248,113,113,0.1); }
+        .btn-sm { padding: 6px 10px; font-size: 0.75rem; }
+        .btn svg { width: 16px; height: 16px; }
 
-        .category-chip.active {
-            background: var(--gradient-primary);
-            border-color: transparent;
-            color: var(--text-inverse);
-            font-weight: 600;
+        /* ============ GRID / LIST ============ */
+        .content-area {
+            max-width: 1600px; margin: 0 auto;
+            padding: 0 24px 40px;
         }
-
-        /* ============================================
-           DISEASE GRID
-           ============================================ */
-        .diseases-section {
-            padding: var(--space-lg) 0 calc(var(--space-3xl) + var(--safe-bottom));
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: var(--space-lg);
-        }
-
-        .section-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-
-        .section-count {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .diseases-grid {
+        .image-grid {
             display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+        .image-grid.list-view {
             grid-template-columns: 1fr;
-            gap: var(--space-md);
+            gap: 8px;
         }
 
-        @media (min-width: 768px) {
-            .diseases-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .diseases-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* Disease Card */
-        .disease-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
+        /* ============ IMAGE CARD ============ */
+        .img-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            cursor: pointer;
-            transition: var(--transition-base);
-            position: relative;
             overflow: hidden;
-        }
-
-        .disease-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--gradient-card);
+            transition: all var(--transition);
+            position: relative;
             opacity: 0;
-            transition: var(--transition-base);
+            animation: fadeUp 0.35s ease forwards;
         }
-
-        .disease-card:hover, .disease-card:active {
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .img-card:hover {
             border-color: var(--border-accent);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-elevated);
+            box-shadow: var(--shadow);
         }
-
-        .disease-card:hover::before {
-            opacity: 1;
-        }
-
-        .disease-card-content {
+        .img-card .thumb-wrap {
             position: relative;
-            z-index: 1;
+            background: var(--bg-elevated);
+            height: 180px;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
         }
-
-        .disease-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: var(--space-md);
-            margin-bottom: var(--space-md);
+        .img-card .thumb-wrap img {
+            max-width: 92%; max-height: 92%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
         }
-
-        .disease-name {
-            font-size: 17px;
-            font-weight: 600;
+        .img-card:hover .thumb-wrap img { transform: scale(1.05); }
+        .img-card .thumb-placeholder {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 20px;
+        }
+        .img-card .card-body {
+            padding: 14px 16px;
+        }
+        .img-card .card-title {
+            font-size: 0.85rem;
+            font-weight: 500;
             color: var(--text-primary);
+            margin-bottom: 4px;
             line-height: 1.3;
         }
-
-        .disease-badge {
-            flex-shrink: 0;
-            padding: var(--space-xs) var(--space-sm);
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: var(--radius-full);
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--accent-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .disease-preview {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            margin-bottom: var(--space-md);
-        }
-
-        .disease-footer {
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
-            padding-top: var(--space-md);
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .disease-meta {
-            display: flex;
-            align-items: center;
-            gap: var(--space-xs);
-            font-size: 12px;
+        .img-card .card-desc {
+            font-size: 0.75rem;
             color: var(--text-muted);
+            margin-bottom: 8px;
         }
-
-        .disease-meta svg {
-            width: 14px;
-            height: 14px;
+        .img-card .card-tags {
+            display: flex; flex-wrap: wrap; gap: 4px;
+            margin-bottom: 10px;
         }
-
-        .disease-status {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: var(--space-xs);
-            font-size: 12px;
-            font-weight: 500;
+        .img-card .tag {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: var(--tag-bg);
+            border: 1px solid var(--tag-border);
+            color: var(--accent);
         }
-
-        .disease-status.generated {
-            color: var(--accent-tertiary);
+        .img-card .card-actions {
+            display: flex; gap: 6px; align-items: center;
+            padding-top: 8px;
+            border-top: 1px solid var(--border);
         }
-
-        .disease-status.pending {
-            color: var(--text-muted);
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
+        .img-card .fav-btn {
+            position: absolute; top: 10px; right: 10px; z-index: 2;
+            width: 32px; height: 32px;
             border-radius: 50%;
-            background: currentColor;
-        }
-
-        /* ============================================
-           DETAIL VIEW (Slide Panel)
-           ============================================ */
-        .detail-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.5);
             backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 200;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-base);
-        }
-
-        .detail-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .detail-panel {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            max-width: 640px;
-            background: var(--bg-base);
-            z-index: 201;
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .detail-panel.open {
-            transform: translateX(0);
-        }
-
-        @media (min-width: 768px) {
-            .detail-panel {
-                border-left: 1px solid var(--border-subtle);
-                box-shadow: -20px 0 60px rgba(0, 0, 0, 0.3);
-            }
-        }
-
-        .detail-header {
-            padding: calc(var(--safe-top) + var(--space-lg)) var(--space-lg) var(--space-lg);
-            background: linear-gradient(to bottom, var(--bg-base) 0%, var(--bg-base) 80%, transparent 100%);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .detail-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: var(--space-lg);
-        }
-
-        .btn-back {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            background: none;
             border: none;
-            color: var(--accent-primary);
-            font-size: 15px;
-            font-weight: 500;
-            font-family: inherit;
             cursor: pointer;
-            padding: var(--space-sm) 0;
-            transition: var(--transition-fast);
-        }
-
-        .btn-back:hover {
-            opacity: 0.8;
-        }
-
-        .btn-back svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        .btn-refresh {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            color: var(--text-secondary);
-            font-size: 13px;
-            font-weight: 500;
-            font-family: inherit;
-            padding: var(--space-sm) var(--space-md);
-            cursor: pointer;
-            transition: var(--transition-base);
-        }
-
-        .btn-refresh:hover {
-            background: var(--bg-elevated);
-            color: var(--text-primary);
-        }
-
-        .btn-refresh svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .detail-title {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: clamp(24px, 5vw, 32px);
-            font-weight: 600;
-            line-height: 1.2;
-            margin-bottom: var(--space-sm);
-            letter-spacing: -0.02em;
-        }
-
-        .detail-badge {
-            display: inline-flex;
-            padding: var(--space-xs) var(--space-md);
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: var(--radius-full);
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--accent-primary);
-        }
-
-        .detail-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 0 var(--space-lg) calc(var(--space-2xl) + var(--safe-bottom));
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Info Cards dans Detail */
-        .info-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-md);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .info-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-        }
-
-        .info-card.blue::before { background: var(--accent-primary); }
-        .info-card.purple::before { background: var(--accent-secondary); }
-        .info-card.green::before { background: var(--accent-tertiary); }
-        .info-card.orange::before { background: var(--accent-warm); }
-        .info-card.rose::before { background: var(--accent-rose); }
-
-        .info-card-header {
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
-            margin-bottom: var(--space-md);
-        }
-
-        .info-card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .info-card-icon.blue { background: rgba(56, 189, 248, 0.15); color: var(--accent-primary); }
-        .info-card-icon.purple { background: rgba(129, 140, 248, 0.15); color: var(--accent-secondary); }
-        .info-card-icon.green { background: rgba(52, 211, 153, 0.15); color: var(--accent-tertiary); }
-        .info-card-icon.orange { background: rgba(251, 146, 60, 0.15); color: var(--accent-warm); }
-        .info-card-icon.rose { background: rgba(244, 114, 182, 0.15); color: var(--accent-rose); }
-
-        .info-card-icon svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        .info-card-title {
-            font-size: 11px;
-            font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            transition: all var(--transition);
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+            font-size: 1rem;
         }
-
-        .info-card-body {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .info-card-body strong {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .info-card-body ul {
-            margin: var(--space-md) 0;
-            padding-left: var(--space-lg);
-        }
-
-        .info-card-body li {
-            margin-bottom: var(--space-sm);
-        }
-
-        .info-card-body li::marker {
-            color: var(--accent-primary);
-        }
-
-        /* Epidemiology Grid */
-        .epi-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-sm);
-            margin-bottom: var(--space-md);
-        }
-
-        .epi-item {
-            background: var(--bg-elevated);
-            border-radius: var(--radius-md);
-            padding: var(--space-md);
-            text-align: center;
-        }
-
-        .epi-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent-primary);
-            margin-bottom: var(--space-xs);
-            word-break: break-word;
-        }
-
-        .epi-label {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Mnemonic Box */
-        .mnemonic-box {
-            background: linear-gradient(135deg, rgba(129, 140, 248, 0.1) 0%, rgba(56, 189, 248, 0.1) 100%);
-            border: 1px solid rgba(129, 140, 248, 0.2);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            margin-top: var(--space-md);
-        }
-
-        .mnemonic-label {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--accent-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: var(--space-sm);
-        }
-
-        .mnemonic-label svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        .mnemonic-text {
-            font-family: 'Fraunces', Georgia, serif;
-            font-size: 20px;
-            font-style: italic;
-            color: var(--text-primary);
-            line-height: 1.4;
-            margin-bottom: var(--space-md);
-        }
-
-        .mnemonic-explanation {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Highlight Box */
-        .highlight-box {
-            background: var(--bg-elevated);
-            border-radius: var(--radius-md);
-            padding: var(--space-md);
-            margin-top: var(--space-md);
-        }
-
-        /* Sources */
-        .sources-list {
-            margin-top: var(--space-md);
-            padding-top: var(--space-md);
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .sources-title {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: var(--space-sm);
-        }
-
-        .source-item {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: var(--space-xs);
-            padding-left: var(--space-md);
-            position: relative;
-        }
-
-        .source-item::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--accent-primary);
-        }
-
-        /* ============================================
-           SETTINGS MODAL
-           ============================================ */
-        .settings-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 300;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-base);
-        }
-
-        .settings-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .settings-modal {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            max-height: 90vh;
-            background: var(--bg-surface);
-            border-top-left-radius: var(--radius-xl);
-            border-top-right-radius: var(--radius-xl);
-            z-index: 301;
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .settings-modal.open {
-            transform: translateY(0);
-        }
-
-        @media (min-width: 768px) {
-            .settings-modal {
-                top: 50%;
-                left: 50%;
-                bottom: auto;
-                right: auto;
-                transform: translate(-50%, -50%) scale(0.95);
-                opacity: 0;
-                width: 100%;
-                max-width: 480px;
-                max-height: 80vh;
-                border-radius: var(--radius-xl);
-            }
-
-            .settings-modal.open {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        .settings-header {
-            padding: var(--space-lg);
-            border-bottom: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .settings-handle {
-            display: block;
-            width: 36px;
-            height: 4px;
+        .img-card .fav-btn:hover { background: rgba(0,0,0,0.7); }
+        .img-card .fav-btn.faved { color: var(--accent-warm); }
+        .img-card .status-dot {
+            position: absolute; top: 10px; left: 10px; z-index: 2;
+            width: 10px; height: 10px;
+            border-radius: 50%;
             background: var(--text-muted);
-            border-radius: 2px;
-            margin: 0 auto var(--space-md);
+        }
+        .img-card .status-dot.ok { background: var(--success); }
+        .img-card .status-dot.broken { background: var(--danger); }
+        .img-card .status-dot.checking {
+            background: var(--accent-warm);
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
         }
 
-        @media (min-width: 768px) {
-            .settings-handle {
-                display: none;
-            }
+        /* ============ LIST VIEW CARDS ============ */
+        .list-view .img-card {
+            display: flex; flex-direction: row;
         }
-
-        .settings-title {
-            font-size: 18px;
-            font-weight: 700;
+        .list-view .thumb-wrap {
+            width: 120px; min-width: 120px; height: 80px;
         }
-
-        .btn-close {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-md);
-            background: var(--bg-elevated);
-            border: none;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition-fast);
+        .list-view .card-body {
+            flex: 1; display: flex; align-items: center; gap: 16px;
+            padding: 10px 16px;
         }
+        .list-view .card-info { flex: 1; }
+        .list-view .card-title { margin-bottom: 2px; }
+        .list-view .card-tags { margin-bottom: 0; }
+        .list-view .card-desc { margin-bottom: 4px; }
+        .list-view .card-actions { border-top: none; padding-top: 0; }
 
-        .btn-close:hover {
-            color: var(--text-primary);
-        }
-
-        .settings-body {
-            flex: 1;
-            overflow-y: auto;
-            padding: var(--space-lg);
-        }
-
-        .setting-group {
-            margin-bottom: var(--space-xl);
-        }
-
-        .setting-group-title {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: var(--space-md);
-        }
-
-        .setting-item {
-            background: var(--bg-base);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: var(--space-md);
-            margin-bottom: var(--space-sm);
-        }
-
-        .setting-item-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: var(--space-sm);
-        }
-
-        .setting-label {
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .setting-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: var(--space-md);
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            color: var(--text-primary);
-            font-size: 14px;
-            font-family: 'SF Mono', Monaco, monospace;
-            margin-top: var(--space-sm);
-            transition: var(--transition-base);
-        }
-
-        .input-field:focus {
-            outline: none;
-            border-color: var(--accent-primary);
-            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
-        }
-
-        .input-field::placeholder {
-            color: var(--text-muted);
-        }
-
-        .settings-footer {
-            padding: var(--space-lg);
-            padding-bottom: calc(var(--space-lg) + var(--safe-bottom));
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: var(--space-md) var(--space-xl);
-            background: var(--gradient-primary);
-            border: none;
-            border-radius: var(--radius-md);
-            color: var(--text-inverse);
-            font-size: 15px;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            transition: var(--transition-base);
-            box-shadow: 0 4px 16px rgba(56, 189, 248, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 24px rgba(56, 189, 248, 0.4);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Status badges */
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-xs);
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: var(--radius-full);
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .status-badge.success {
-            background: rgba(52, 211, 153, 0.15);
-            color: var(--accent-tertiary);
-        }
-
-        .status-badge.warning {
-            background: rgba(251, 146, 60, 0.15);
-            color: var(--accent-warm);
-        }
-
-        .status-badge.error {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-        }
-
-        /* ============================================
-           LOADING & STATES
-           ============================================ */
-        .loading-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.9);
+        /* ============ MODAL ============ */
+        .modal-overlay {
+            display: none;
+            position: fixed; inset: 0; z-index: 999;
+            background: rgba(0,0,0,0.8);
             backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 400;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-base);
+            align-items: center; justify-content: center;
+            padding: 24px;
         }
-
-        .loading-overlay.active {
-            opacity: 1;
-            visibility: visible;
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            max-width: 900px; width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+            animation: modalIn 0.25s ease;
         }
-
-        .loading-spinner {
-            width: 48px;
-            height: 48px;
-            border: 3px solid var(--border-subtle);
-            border-top-color: var(--accent-primary);
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .modal-header h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+        }
+        .modal-close {
+            width: 36px; height: 36px;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: var(--space-lg);
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .loading-text {
-            font-size: 16px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
             color: var(--text-secondary);
-            text-align: center;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            transition: all var(--transition);
         }
-
-        .loading-subtext {
-            font-size: 13px;
+        .modal-close:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .modal-img-wrap {
+            background: var(--bg-elevated);
+            display: flex; align-items: center; justify-content: center;
+            padding: 24px;
+            min-height: 300px;
+        }
+        .modal-img-wrap img {
+            max-width: 100%; max-height: 500px;
+            object-fit: contain;
+        }
+        .modal-body {
+            padding: 24px;
+        }
+        .modal-body .meta-grid {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 8px 16px;
+            font-size: 0.85rem;
+        }
+        .meta-grid .label {
             color: var(--text-muted);
-            margin-top: var(--space-sm);
+            font-weight: 500;
+        }
+        .meta-grid .value {
+            color: var(--text-primary);
+            word-break: break-all;
+        }
+        .meta-grid .value a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .meta-grid .value a:hover { text-decoration: underline; }
+        .modal-actions {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border);
+            display: flex; gap: 8px; flex-wrap: wrap;
         }
 
-        /* Progress bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            z-index: 500;
+        /* ============ URL CHECKER PANEL ============ */
+        .checker-panel {
+            display: none;
+            max-width: 1600px; margin: 0 auto;
+            padding: 0 24px 20px;
+        }
+        .checker-panel.open { display: block; }
+        .checker-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+        .checker-box h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+        .checker-progress {
+            height: 4px;
+            background: var(--bg-elevated);
+            border-radius: 2px;
+            margin-bottom: 12px;
             overflow: hidden;
-            opacity: 0;
-            transition: opacity 0.3s;
         }
-
-        .progress-bar.active {
-            opacity: 1;
-        }
-
-        .progress-bar-inner {
+        .checker-progress .bar {
             height: 100%;
-            background: var(--gradient-primary);
-            animation: progress 2s ease-in-out infinite;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+            width: 0;
+        }
+        .checker-stats {
+            display: flex; gap: 20px; font-size: 0.82rem;
+        }
+        .checker-stats span { color: var(--text-muted); }
+        .checker-stats .ok-count { color: var(--success); }
+        .checker-stats .fail-count { color: var(--danger); }
+
+        /* ============ EXPORT PANEL ============ */
+        .export-panel {
+            display: none;
+            max-width: 1600px; margin: 0 auto;
+            padding: 0 24px 20px;
+        }
+        .export-panel.open { display: block; }
+        .export-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+        .export-box textarea {
+            width: 100%;
+            min-height: 200px;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text-primary);
+            font-family: 'DM Mono', monospace, 'DM Sans';
+            font-size: 0.78rem;
+            padding: 14px;
+            resize: vertical;
         }
 
-        @keyframes progress {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(0%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Toast */
+        /* ============ TOAST ============ */
         .toast {
             position: fixed;
-            bottom: calc(var(--space-xl) + var(--safe-bottom));
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
+            bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
             background: var(--bg-elevated);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: var(--space-md) var(--space-xl);
+            border: 1px solid var(--border-accent);
             color: var(--text-primary);
-            font-size: 14px;
-            font-weight: 500;
-            z-index: 500;
+            padding: 12px 24px;
+            border-radius: var(--radius);
+            font-size: 0.85rem;
+            z-index: 10000;
             opacity: 0;
-            transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-            box-shadow: var(--shadow-elevated);
-            max-width: calc(100vw - var(--space-xl) * 2);
-            text-align: center;
+            transition: all 0.3s ease;
+            pointer-events: none;
         }
-
         .toast.show {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
 
-        /* Empty State */
+        /* ============ EMPTY STATE ============ */
         .empty-state {
             text-align: center;
-            padding: var(--space-3xl) var(--space-lg);
-        }
-
-        .empty-state-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto var(--space-lg);
-            background: var(--bg-surface);
-            border-radius: var(--radius-xl);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 80px 20px;
             color: var(--text-muted);
         }
+        .empty-state svg { width: 48px; height: 48px; margin-bottom: 16px; opacity: 0.4; }
+        .empty-state p { font-size: 0.9rem; }
 
-        .empty-state-icon svg {
-            width: 40px;
-            height: 40px;
+        /* ============ PATHOLOGY LINK BADGE ============ */
+        .pathology-badge {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: var(--accent-warm);
         }
 
-        .empty-state-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: var(--space-sm);
+        /* ============ SELECTION MODE ============ */
+        .img-card.selectable { cursor: pointer; }
+        .img-card.selected {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent-glow), var(--shadow);
         }
-
-        .empty-state-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            max-width: 300px;
-            margin: 0 auto var(--space-lg);
-        }
-
-        .btn-generate {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-md) var(--space-xl);
-            background: var(--gradient-primary);
-            border: none;
-            border-radius: var(--radius-md);
-            color: var(--text-inverse);
-            font-size: 15px;
-            font-weight: 600;
-            font-family: inherit;
-            cursor: pointer;
-            transition: var(--transition-base);
-        }
-
-        .btn-generate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(56, 189, 248, 0.3);
-        }
-
-        .btn-generate svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Update status inline */
-        .update-info {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-md);
-            background: var(--bg-surface);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            margin-bottom: var(--space-lg);
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .update-info .dot {
-            width: 8px;
-            height: 8px;
+        .img-card .select-check {
+            display: none;
+            position: absolute; top: 10px; left: 10px; z-index: 3;
+            width: 24px; height: 24px;
             border-radius: 50%;
-            background: var(--accent-tertiary);
+            background: var(--accent);
+            color: var(--bg-deep);
+            align-items: center; justify-content: center;
+            font-size: 0.75rem; font-weight: 700;
+        }
+        .img-card.selected .select-check { display: flex; }
+        .selection-bar {
+            display: none;
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+            background: var(--bg-elevated);
+            border: 1px solid var(--accent);
+            border-radius: var(--radius-lg);
+            padding: 12px 20px;
+            z-index: 500;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            align-items: center; gap: 12px;
+            font-size: 0.85rem;
+        }
+        .selection-bar.show { display: flex; }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .stats-bar { padding: 12px 16px; }
+            .content-area { padding: 0 16px 40px; }
+            .image-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+            .img-card .thumb-wrap { height: 130px; }
+            .toolbar { padding: 0 0 10px; }
+            .filter-row { padding: 0 0 10px; }
+            .header-top { padding: 12px 0 8px; }
+            .modal { max-height: 95vh; }
+            .modal-img-wrap { min-height: 200px; }
         }
     </style>
 </head>
 <body>
-    <div id="root"></div>
 
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- ====== HEADER ====== -->
+    <header class="app-header">
+        <div class="header-top">
+            <div class="logo">
+                <span class="logo-mark">MedRef Pro</span>
+                <span class="logo-sub">Banque d'images</span>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-sm" onclick="toggleChecker()" title="Vérifier les URLs">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                    Vérifier
+                </button>
+                <button class="btn btn-sm" onclick="toggleSelectMode()" id="selectModeBtn" title="Mode sélection">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                    Sélection
+                </button>
+                <button class="btn btn-sm" onclick="exportData()" title="Exporter">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Export
+                </button>
+            </div>
+        </div>
 
-    <script type="text/babel">
-        const { useState, useEffect, useCallback, useMemo } = React;
+        <div class="toolbar">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="searchInput" placeholder="Rechercher par nom, description, tag, pathologie…" oninput="applyFilters()">
+            </div>
+            <button class="btn btn-sm" onclick="filterFavorites()" id="favFilterBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                Favoris
+            </button>
+            <select id="formatFilter" class="btn btn-sm" onchange="applyFilters()" style="appearance:auto;background:var(--bg-card);">
+                <option value="">Tous formats</option>
+                <option value="svg">SVG</option>
+                <option value="png">PNG</option>
+                <option value="jpg">JPG</option>
+                <option value="gif">GIF</option>
+                <option value="pptx">PPTX</option>
+            </select>
+            <select id="tagFilter" class="btn btn-sm" onchange="applyFilters()" style="appearance:auto;background:var(--bg-card);">
+                <option value="">Tous tags</option>
+            </select>
+        </div>
 
-        // ============================================
-        // CONFIGURATION
-        // ============================================
-        const PROXY_URL = 'https://medref-proxy.jeansimail.workers.dev';
-        const USE_PROXY = true;
+        <div class="filter-row" id="categoryChips"></div>
+    </header>
 
-        // Liste complète des pathologies (90% des maladies occidentales)
-        const DISEASES_LIST = [
-            // Cardiovasculaire
-            { id: 'hta', name: 'Hypertension artérielle', category: 'Cardiovasculaire' },
-            { id: 'coronaropathie', name: 'Coronaropathie', category: 'Cardiovasculaire' },
-            { id: 'insuffisance-cardiaque', name: 'Insuffisance cardiaque', category: 'Cardiovasculaire' },
-            { id: 'fibrillation-auriculaire', name: 'Fibrillation auriculaire', category: 'Cardiovasculaire' },
-            { id: 'avc', name: 'AVC ischémique', category: 'Cardiovasculaire' },
-            { id: 'aomi', name: 'AOMI', category: 'Cardiovasculaire' },
-            { id: 'tvp', name: 'Thrombose veineuse profonde', category: 'Cardiovasculaire' },
-            { id: 'embolie-pulmonaire', name: 'Embolie pulmonaire', category: 'Cardiovasculaire' },
-            
-            // Respiratoire
-            { id: 'bpco', name: 'BPCO', category: 'Respiratoire' },
-            { id: 'asthme', name: 'Asthme', category: 'Respiratoire' },
-            { id: 'pneumonie', name: 'Pneumonie communautaire', category: 'Respiratoire' },
-            { id: 'covid19', name: 'COVID-19', category: 'Respiratoire' },
-            { id: 'grippe', name: 'Grippe', category: 'Respiratoire' },
-            { id: 'apnee-sommeil', name: 'Syndrome d\'apnées du sommeil', category: 'Respiratoire' },
-            
-            // Métabolique/Endocrinien
-            { id: 'diabete-type2', name: 'Diabète de type 2', category: 'Métabolique' },
-            { id: 'diabete-type1', name: 'Diabète de type 1', category: 'Métabolique' },
-            { id: 'dyslipidemie', name: 'Dyslipidémie', category: 'Métabolique' },
-            { id: 'hypothyroidie', name: 'Hypothyroïdie', category: 'Endocrinien' },
-            { id: 'hyperthyroidie', name: 'Hyperthyroïdie', category: 'Endocrinien' },
-            { id: 'obesite', name: 'Obésité', category: 'Métabolique' },
-            { id: 'goutte', name: 'Goutte', category: 'Métabolique' },
-            
-            // Digestif
-            { id: 'rgo', name: 'RGO', category: 'Digestif' },
-            { id: 'ulcere-gastrique', name: 'Ulcère gastroduodénal', category: 'Digestif' },
-            { id: 'syndrome-intestin-irritable', name: 'Syndrome de l\'intestin irritable', category: 'Digestif' },
-            { id: 'mici', name: 'MICI (Crohn/RCH)', category: 'Digestif' },
-            { id: 'cirrhose', name: 'Cirrhose', category: 'Digestif' },
-            { id: 'hepatite-b', name: 'Hépatite B', category: 'Digestif' },
-            { id: 'hepatite-c', name: 'Hépatite C', category: 'Digestif' },
-            { id: 'lithiase-biliaire', name: 'Lithiase biliaire', category: 'Digestif' },
-            { id: 'pancreatite', name: 'Pancréatite aiguë', category: 'Digestif' },
-            
-            // Neurologie
-            { id: 'migraine', name: 'Migraine', category: 'Neurologie' },
-            { id: 'epilepsie', name: 'Épilepsie', category: 'Neurologie' },
-            { id: 'parkinson', name: 'Maladie de Parkinson', category: 'Neurologie' },
-            { id: 'alzheimer', name: 'Maladie d\'Alzheimer', category: 'Neurologie' },
-            { id: 'sep', name: 'Sclérose en plaques', category: 'Neurologie' },
-            { id: 'neuropathie-peripherique', name: 'Neuropathie périphérique', category: 'Neurologie' },
-            { id: 'meningite', name: 'Méningite bactérienne', category: 'Neurologie' },
-            
-            // Psychiatrie
-            { id: 'depression', name: 'Épisode dépressif majeur', category: 'Psychiatrie' },
-            { id: 'trouble-anxieux', name: 'Trouble anxieux généralisé', category: 'Psychiatrie' },
-            { id: 'trouble-bipolaire', name: 'Trouble bipolaire', category: 'Psychiatrie' },
-            { id: 'schizophrenie', name: 'Schizophrénie', category: 'Psychiatrie' },
-            { id: 'toc', name: 'TOC', category: 'Psychiatrie' },
-            { id: 'addiction-alcool', name: 'Trouble de l\'usage de l\'alcool', category: 'Psychiatrie' },
-            { id: 'addiction-tabac', name: 'Dépendance tabagique', category: 'Psychiatrie' },
-            { id: 'trouble-panique', name: 'Trouble panique', category: 'Psychiatrie' },
-            
-            // Rhumatologie
-            { id: 'polyarthrite-rhumatoide', name: 'Polyarthrite rhumatoïde', category: 'Rhumatologie' },
-            { id: 'arthrose', name: 'Arthrose', category: 'Rhumatologie' },
-            { id: 'spondylarthrite', name: 'Spondylarthrite ankylosante', category: 'Rhumatologie' },
-            { id: 'osteoporose', name: 'Ostéoporose', category: 'Rhumatologie' },
-            { id: 'fibromyalgie', name: 'Fibromyalgie', category: 'Rhumatologie' },
-            { id: 'lupus', name: 'Lupus érythémateux systémique', category: 'Rhumatologie' },
-            { id: 'sclerodermie', name: 'Sclérodermie systémique', category: 'Rhumatologie' },
-            
-            // Néphrologie
-            { id: 'irc', name: 'Insuffisance rénale chronique', category: 'Néphrologie' },
-            { id: 'infection-urinaire', name: 'Infection urinaire', category: 'Néphrologie' },
-            { id: 'lithiase-urinaire', name: 'Lithiase urinaire', category: 'Néphrologie' },
-            { id: 'syndrome-nephrotique', name: 'Syndrome néphrotique', category: 'Néphrologie' },
-            
-            // Dermatologie
-            { id: 'eczema', name: 'Dermatite atopique', category: 'Dermatologie' },
-            { id: 'psoriasis', name: 'Psoriasis', category: 'Dermatologie' },
-            { id: 'acne', name: 'Acné', category: 'Dermatologie' },
-            { id: 'melanome', name: 'Mélanome', category: 'Dermatologie' },
-            { id: 'urticaire', name: 'Urticaire chronique', category: 'Dermatologie' },
-            { id: 'zona', name: 'Zona', category: 'Dermatologie' },
-            
-            // Infectieux
-            { id: 'vih', name: 'VIH/SIDA', category: 'Infectieux' },
-            { id: 'chlamydia', name: 'Chlamydiose', category: 'Infectieux' },
-            { id: 'tuberculose', name: 'Tuberculose', category: 'Infectieux' },
-            { id: 'endocardite', name: 'Endocardite infectieuse', category: 'Infectieux' },
-            { id: 'sepsis', name: 'Sepsis', category: 'Infectieux' },
-            
-            // Oncologie
-            { id: 'cancer-sein', name: 'Cancer du sein', category: 'Oncologie' },
-            { id: 'cancer-poumon', name: 'Cancer du poumon', category: 'Oncologie' },
-            { id: 'cancer-colon', name: 'Cancer colorectal', category: 'Oncologie' },
-            { id: 'cancer-prostate', name: 'Cancer de la prostate', category: 'Oncologie' },
-            { id: 'lymphome', name: 'Lymphome', category: 'Oncologie' },
-            { id: 'leucemie', name: 'Leucémie aiguë', category: 'Oncologie' },
-            
-            // Hématologie
-            { id: 'anemie-ferriprive', name: 'Anémie ferriprive', category: 'Hématologie' },
-            { id: 'anemie-b12', name: 'Anémie par carence en B12', category: 'Hématologie' },
-            { id: 'hemophilie', name: 'Hémophilie', category: 'Hématologie' },
-            { id: 'thrombopenie', name: 'Thrombopénie immune', category: 'Hématologie' },
-            
-            // Autres
-            { id: 'allergie', name: 'Rhinite allergique', category: 'Allergologie' },
-            { id: 'anaphylaxie', name: 'Anaphylaxie', category: 'Allergologie' },
-        ];
+    <!-- ====== CHECKER PANEL ====== -->
+    <div class="checker-panel" id="checkerPanel">
+        <div class="checker-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <h3>Vérification des URLs</h3>
+                <div style="display:flex;gap:8px;">
+                    <button class="btn btn-sm btn-accent" onclick="runUrlCheck()">Lancer</button>
+                    <button class="btn btn-sm" onclick="toggleChecker()">Fermer</button>
+                </div>
+            </div>
+            <div class="checker-progress"><div class="bar" id="checkerBar"></div></div>
+            <div class="checker-stats">
+                <span>Vérifiées : <strong id="checkTotal">0</strong></span>
+                <span class="ok-count">✓ OK : <strong id="checkOk">0</strong></span>
+                <span class="fail-count">✗ Cassées : <strong id="checkFail">0</strong></span>
+            </div>
+        </div>
+    </div>
 
-        const CATEGORIES = ['Tous', ...new Set(DISEASES_LIST.map(d => d.category))].sort((a, b) => {
-            if (a === 'Tous') return -1;
-            if (b === 'Tous') return 1;
-            return a.localeCompare(b);
+    <!-- ====== EXPORT PANEL ====== -->
+    <div class="export-panel" id="exportPanel">
+        <div class="export-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <h3 style="font-family:'Instrument Serif',serif;font-weight:400;">Export des données</h3>
+                <div style="display:flex;gap:8px;">
+                    <button class="btn btn-sm" onclick="copyExport()">Copier</button>
+                    <button class="btn btn-sm" onclick="downloadExport()">Télécharger .json</button>
+                    <button class="btn btn-sm" onclick="toggleExport()">Fermer</button>
+                </div>
+            </div>
+            <textarea id="exportArea" readonly></textarea>
+        </div>
+    </div>
+
+    <!-- ====== STATS BAR ====== -->
+    <div class="stats-bar">
+        <div class="stats-left">
+            <div class="stat-item">
+                <span class="stat-value" id="totalCount">0</span>
+                <span class="stat-label">images</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="catCount">0</span>
+                <span class="stat-label">spécialités</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" id="filteredCount">0</span>
+                <span class="stat-label">affichées</span>
+            </div>
+        </div>
+        <div class="view-toggles">
+            <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" title="Grille">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            </button>
+            <button class="view-btn" id="listViewBtn" onclick="setView('list')" title="Liste">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- ====== CONTENT ====== -->
+    <div class="content-area">
+        <div class="image-grid" id="imageGrid"></div>
+    </div>
+
+    <!-- ====== SELECTION BAR ====== -->
+    <div class="selection-bar" id="selectionBar">
+        <span id="selCount">0</span> sélectionnées
+        <button class="btn btn-sm btn-accent" onclick="exportSelected()">Exporter sélection</button>
+        <button class="btn btn-sm" onclick="clearSelection()">Annuler</button>
+    </div>
+
+    <!-- ====== MODAL ====== -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 id="modalTitle">—</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-img-wrap">
+                <img id="modalImg" src="" alt="">
+            </div>
+            <div class="modal-body">
+                <div class="meta-grid" id="modalMeta"></div>
+            </div>
+            <div class="modal-actions" id="modalActions"></div>
+        </div>
+    </div>
+
+    <!-- ====== TOAST ====== -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+    // ============================================================
+    // UNIFIED DATABASE — Single source of truth
+    // ============================================================
+    const DB = {
+      cardiovasculaire: {
+        label: "Cardiovasculaire", icon: "❤️",
+        pathologies: ["HTA", "Coronaropathie", "Insuffisance cardiaque", "FA", "AVC", "AOMI", "TVP", "Embolie pulmonaire", "Valvulopathie", "Péricardite", "Anévrisme"],
+        images: [
+          { id:"C01", name:"coeur-anatomie.svg", desc:"Schéma anatomique du cœur", url:"https://upload.wikimedia.org/wikipedia/commons/e/e5/Diagram_of_the_human_heart_%28cropped%29.svg", tags:["anatomie","cœur"], pathologies:["Insuffisance cardiaque","Valvulopathie"] },
+          { id:"C02", name:"coeur-coupe.png", desc:"Coupe transversale du cœur", url:"https://upload.wikimedia.org/wikipedia/commons/d/d9/Blausen_0457_Heart_SectionalAnatomy.png", tags:["anatomie","cœur","coupe"], pathologies:["Insuffisance cardiaque"] },
+          { id:"C03", name:"coeur-anterieur.png", desc:"Vue antérieure du cœur", url:"https://upload.wikimedia.org/wikipedia/commons/d/d4/Blausen_0451_Heart_Anterior.png", tags:["anatomie","cœur"], pathologies:[] },
+          { id:"C04", name:"valves-cardiaques.png", desc:"Anatomie des valves cardiaques", url:"https://upload.wikimedia.org/wikipedia/commons/3/3a/Blausen_0470_HeartValves_Anatomy.png", tags:["anatomie","valves"], pathologies:["Valvulopathie"] },
+          { id:"C05", name:"circulation-cardiaque.svg", desc:"Circulation sanguine cardiaque", url:"https://upload.wikimedia.org/wikipedia/commons/2/22/Heart_diagram_blood_flow_en.svg", tags:["physiologie","circulation"], pathologies:[] },
+          { id:"C06", name:"conduction-cardiaque.png", desc:"Système de conduction cardiaque", url:"https://upload.wikimedia.org/wikipedia/commons/5/5a/Cardiac_Conduction_System.png", tags:["physiologie","conduction","ECG"], pathologies:["FA"] },
+          { id:"C07", name:"hvg-hypertrophie.png", desc:"Hypertrophie ventriculaire gauche", url:"https://upload.wikimedia.org/wikipedia/commons/a/a5/Blausen_0455_Heart_LeftVentricleHypertrophy.png", tags:["pathologie","hypertrophie"], pathologies:["HTA","Insuffisance cardiaque"] },
+          { id:"C08", name:"arteres-coronaires.svg", desc:"Artères coronaires", url:"https://upload.wikimedia.org/wikipedia/commons/1/15/Coronary_arteries.svg", tags:["anatomie","coronaires"], pathologies:["Coronaropathie"] },
+          { id:"C09", name:"atherosclerose.png", desc:"Athérosclérose artérielle", url:"https://upload.wikimedia.org/wikipedia/commons/b/b7/Blausen_0052_Artery_NormalvPartiallyBlocked.png", tags:["physiopathologie","athérosclérose"], pathologies:["Coronaropathie","AOMI"] },
+          { id:"C10", name:"coronaropathie.png", desc:"Coronaropathie", url:"https://upload.wikimedia.org/wikipedia/commons/6/6e/Blausen_0260_Coronary_Artery_Disease_02.png", tags:["pathologie","coronaires"], pathologies:["Coronaropathie"] },
+          { id:"C11", name:"infarctus.png", desc:"Infarctus du myocarde", url:"https://upload.wikimedia.org/wikipedia/commons/1/1e/Blausen_0463_HeartAttack.png", tags:["pathologie","IDM","urgence"], pathologies:["Coronaropathie"] },
+          { id:"C12", name:"atherosclerose-formation.svg", desc:"Formation de la plaque d'athérome", url:"https://upload.wikimedia.org/wikipedia/commons/a/a0/Endo_dysfunction_Athero-fr.svg", tags:["physiopathologie","athérosclérose","plaque"], pathologies:["Coronaropathie","AOMI"] },
+          { id:"C13", name:"hta-complications.svg", desc:"Complications de l'HTA", url:"https://upload.wikimedia.org/wikipedia/commons/8/8e/Main_complications_of_persistent_high_blood_pressure.svg", tags:["pathologie","HTA","complications"], pathologies:["HTA"] },
+          { id:"C14", name:"hypertension.png", desc:"Hypertension artérielle", url:"https://upload.wikimedia.org/wikipedia/commons/f/f5/Blausen_0486_HighBloodPressure_01.png", tags:["pathologie","HTA"], pathologies:["HTA"] },
+          { id:"C15", name:"cardiomyopathie-dilatee.svg", desc:"Cardiomyopathie dilatée", url:"https://upload.wikimedia.org/wikipedia/commons/5/5d/Blausen_0165_Cardiomyopathy_Dilated.svg", tags:["pathologie","cardiomyopathie"], pathologies:["Insuffisance cardiaque"] },
+          { id:"C16", name:"cardiomyopathie-hypertrophique.svg", desc:"Cardiomyopathie hypertrophique", url:"https://upload.wikimedia.org/wikipedia/commons/a/a8/Blausen_0166_Cardiomyopathy_Hypertrophic.svg", tags:["pathologie","cardiomyopathie","CMH"], pathologies:["Insuffisance cardiaque"] },
+          { id:"C17", name:"ecg-normal.svg", desc:"ECG rythme sinusal normal", url:"https://upload.wikimedia.org/wikipedia/commons/9/9e/SinusRhythmLabels.svg", tags:["diagnostic","ECG","sinusal"], pathologies:["FA"] },
+          { id:"C18", name:"fa-ecg.jpg", desc:"ECG fibrillation atriale", url:"https://upload.wikimedia.org/wikipedia/commons/b/bd/Afib_ecg.jpg", tags:["diagnostic","ECG","FA"], pathologies:["FA"] },
+          { id:"C19", name:"fa-schema.svg", desc:"Schéma fibrillation atriale", url:"https://upload.wikimedia.org/wikipedia/commons/f/f0/Atrial_Fibrillation.svg", tags:["physiopathologie","FA","arythmie"], pathologies:["FA"] },
+          { id:"C20", name:"fv-ecg.svg", desc:"ECG fibrillation ventriculaire", url:"https://upload.wikimedia.org/wikipedia/commons/1/1e/Ventricular_Fibrillation.svg", tags:["diagnostic","ECG","urgence"], pathologies:[] },
+          { id:"C21", name:"tv-ecg.svg", desc:"ECG tachycardie ventriculaire", url:"https://upload.wikimedia.org/wikipedia/commons/8/87/Ventricular_Tachycardia.svg", tags:["diagnostic","ECG","urgence"], pathologies:[] },
+          { id:"C22", name:"bradycardie-ecg.svg", desc:"ECG bradycardie sinusale", url:"https://upload.wikimedia.org/wikipedia/commons/d/d7/Sinus_Bradycardia.svg", tags:["diagnostic","ECG"], pathologies:[] },
+          { id:"C23", name:"tachycardie-ecg.svg", desc:"ECG tachycardie sinusale", url:"https://upload.wikimedia.org/wikipedia/commons/4/4d/Sinus_Tachycardia.svg", tags:["diagnostic","ECG"], pathologies:[] },
+          { id:"C24", name:"potentiel-action-cardiaque.svg", desc:"Potentiel d'action cardiomyocyte", url:"https://upload.wikimedia.org/wikipedia/commons/a/a2/Action_potential_ventr_myocyte.svg", tags:["physiologie","électrophysiologie"], pathologies:[] },
+          { id:"C25", name:"wiggers-diagram.svg", desc:"Diagramme de Wiggers", url:"https://upload.wikimedia.org/wikipedia/commons/1/11/Wiggers_Diagram.svg", tags:["physiologie","cycle cardiaque"], pathologies:[] },
+          { id:"C26", name:"cycle-cardiaque.jpg", desc:"Cycle cardiaque complet", url:"https://upload.wikimedia.org/wikipedia/commons/4/4c/2029_Cardiac_Cycle.jpg", tags:["physiologie","cycle cardiaque"], pathologies:[] },
+          { id:"C27", name:"coeur-diastole.svg", desc:"Cœur en diastole", url:"https://upload.wikimedia.org/wikipedia/commons/5/56/Heart_diastole.svg", tags:["physiologie","diastole"], pathologies:[] },
+          { id:"C28", name:"coeur-systole.svg", desc:"Cœur en systole", url:"https://upload.wikimedia.org/wikipedia/commons/f/f3/Heart_systole.svg", tags:["physiologie","systole"], pathologies:[] },
+          { id:"C29", name:"frank-starling.svg", desc:"Courbes de Frank-Starling", url:"https://upload.wikimedia.org/wikipedia/commons/f/f5/Frank-Starling_curves_with_labels.svg", tags:["physiologie","Frank-Starling"], pathologies:["Insuffisance cardiaque"] },
+          { id:"C30", name:"preload-afterload.svg", desc:"Précharge et postcharge", url:"https://upload.wikimedia.org/wikipedia/commons/4/4e/Preload_afterload_stroke_volume.svg", tags:["physiologie","hémodynamique"], pathologies:["Insuffisance cardiaque"] },
+          { id:"C31", name:"embolie-pulmonaire.png", desc:"Embolie pulmonaire", url:"https://upload.wikimedia.org/wikipedia/commons/c/c9/Blausen_0742_PulmonaryEmbolism.png", tags:["pathologie","EP","urgence"], pathologies:["Embolie pulmonaire"] },
+          { id:"C32", name:"tvp-jambe.jpg", desc:"Thrombose veineuse profonde", url:"https://upload.wikimedia.org/wikipedia/commons/c/c8/Deep_vein_thrombosis_of_the_right_leg.jpg", tags:["pathologie","TVP","thrombose"], pathologies:["TVP"] },
+          { id:"C33", name:"aomi.svg", desc:"Artériopathie oblitérante", url:"https://upload.wikimedia.org/wikipedia/commons/d/d9/Blausen_Peripheral_Arterial_Disease_eng.svg", tags:["pathologie","AOMI","artères"], pathologies:["AOMI"] },
+          { id:"C34", name:"sraa-systeme.png", desc:"Système rénine-angiotensine", url:"https://upload.wikimedia.org/wikipedia/commons/c/c8/Blausen_0699_RAAS_Overview.png", tags:["physiologie","SRAA","rénine"], pathologies:["HTA","Insuffisance cardiaque"] },
+          { id:"C35", name:"raas-schema.png", desc:"Schéma SRAA détaillé", url:"https://upload.wikimedia.org/wikipedia/commons/5/5a/Renin-angiotensin-aldosterone_system.png", tags:["physiologie","SRAA"], pathologies:["HTA"] },
+          { id:"C36", name:"circulation-systemique.svg", desc:"Circulation systémique", url:"https://upload.wikimedia.org/wikipedia/commons/2/23/Circulatory_System_en.svg", tags:["anatomie","circulation"], pathologies:[] },
+          { id:"C37", name:"flux-sanguin-coeur.jpg", desc:"Flux sanguin à travers le cœur", url:"https://upload.wikimedia.org/wikipedia/commons/5/57/2101_Blood_Flow_Through_the_Heart.jpg", tags:["physiologie","circulation"], pathologies:[] },
+          { id:"C38", name:"cha2ds2-vasc.svg", desc:"Score CHA2DS2-VASc", url:"https://upload.wikimedia.org/wikipedia/commons/a/a3/CHA2DS2-VASc_score.svg", tags:["diagnostic","score","FA"], pathologies:["FA","AVC"] },
+          { id:"C39", name:"insuffisance-aortique.png", desc:"Insuffisance aortique", url:"https://upload.wikimedia.org/wikipedia/commons/a/a4/Blausen_0039_AorticRegurgitation.png", tags:["pathologie","valvulopathie","IAo"], pathologies:["Valvulopathie"] },
+          { id:"C40", name:"stenose-aortique.png", desc:"Sténose aortique", url:"https://upload.wikimedia.org/wikipedia/commons/8/8c/Blausen_0040_AorticStenosis.png", tags:["pathologie","valvulopathie","RAo"], pathologies:["Valvulopathie"] },
+          { id:"C41", name:"insuffisance-mitrale.png", desc:"Insuffisance mitrale", url:"https://upload.wikimedia.org/wikipedia/commons/4/4a/Blausen_0631_MitralRegurgitation.png", tags:["pathologie","valvulopathie","IM"], pathologies:["Valvulopathie"] },
+          { id:"C42", name:"stenose-mitrale.png", desc:"Sténose mitrale", url:"https://upload.wikimedia.org/wikipedia/commons/5/54/Blausen_0632_MitralStenosis.png", tags:["pathologie","valvulopathie","RM"], pathologies:["Valvulopathie"] },
+          { id:"C43", name:"epanchement-pericardique.png", desc:"Épanchement péricardique", url:"https://upload.wikimedia.org/wikipedia/commons/3/3c/Blausen_0724_PericardialEffusion.png", tags:["pathologie","péricarde"], pathologies:["Péricardite"] },
+          { id:"C44", name:"pericardite.png", desc:"Péricardite", url:"https://upload.wikimedia.org/wikipedia/commons/8/83/Blausen_0725_Pericarditis.png", tags:["pathologie","péricarde"], pathologies:["Péricardite"] },
+          { id:"C45", name:"anevrisme-aorte.png", desc:"Anévrisme de l'aorte abdominale", url:"https://upload.wikimedia.org/wikipedia/commons/e/e5/Blausen_0001_AbdominalAorticAneurysm.png", tags:["pathologie","anévrisme","aorte"], pathologies:["Anévrisme"] },
+        ]
+      },
+      neurologie: {
+        label: "Neurologie", icon: "🧠",
+        pathologies: ["AVC", "Alzheimer", "Parkinson", "Épilepsie", "Migraine", "Méningite", "SEP"],
+        images: [
+          { id:"N01", name:"cerveau-lateral.png", desc:"Cerveau vue latérale", url:"https://upload.wikimedia.org/wikipedia/commons/d/d2/Blausen_0101_Brain_LateralView.png", tags:["anatomie","cerveau"], pathologies:[] },
+          { id:"N02", name:"cerveau-lobes.png", desc:"Lobes cérébraux", url:"https://upload.wikimedia.org/wikipedia/commons/0/09/Blausen_0111_BrainLobes.png", tags:["anatomie","cerveau","lobes"], pathologies:[] },
+          { id:"N03", name:"cerveau-coupe.png", desc:"Coupe du cerveau", url:"https://upload.wikimedia.org/wikipedia/commons/1/10/Blausen_0170_Cerebrum.png", tags:["anatomie","cerveau","coupe"], pathologies:[] },
+          { id:"N04", name:"cerveau-sagittal.png", desc:"Coupe sagittale cerveau", url:"https://upload.wikimedia.org/wikipedia/commons/e/ea/Blausen_0114_BrainSagittal.png", tags:["anatomie","cerveau"], pathologies:[] },
+          { id:"N05", name:"tronc-cerebral.png", desc:"Tronc cérébral", url:"https://upload.wikimedia.org/wikipedia/commons/4/4a/Blausen_0115_BrainStem.png", tags:["anatomie","tronc cérébral"], pathologies:[] },
+          { id:"N06", name:"polygone-willis.svg", desc:"Polygone de Willis", url:"https://upload.wikimedia.org/wikipedia/commons/2/2e/Circle_of_Willis_en.svg", tags:["anatomie","vascularisation","Willis"], pathologies:["AVC"] },
+          { id:"N07", name:"arteres-cerebrales.png", desc:"Artères cérébrales", url:"https://upload.wikimedia.org/wikipedia/commons/9/9a/Gray516.png", tags:["anatomie","vascularisation"], pathologies:["AVC"] },
+          { id:"N08", name:"avc.png", desc:"Accident vasculaire cérébral", url:"https://upload.wikimedia.org/wikipedia/commons/6/64/Blausen_0836_Stroke.png", tags:["pathologie","AVC","urgence"], pathologies:["AVC"] },
+          { id:"N09", name:"avc-ischemique.svg", desc:"AVC ischémique", url:"https://upload.wikimedia.org/wikipedia/commons/7/75/Ischemic_Stroke.svg", tags:["pathologie","AVC","ischémie"], pathologies:["AVC"] },
+          { id:"N10", name:"hemorragie-cerebrale-types.png", desc:"Types d'hémorragies cérébrales", url:"https://upload.wikimedia.org/wikipedia/commons/8/8c/An_illustration_of_the_different_types_of_brain_hemorrhage.png", tags:["pathologie","hémorragie","AVC"], pathologies:["AVC"] },
+          { id:"N11", name:"neurone.png", desc:"Neurone multipolaire", url:"https://upload.wikimedia.org/wikipedia/commons/b/b5/Blausen_0657_MultipolarNeuron.png", tags:["histologie","neurone"], pathologies:[] },
+          { id:"N12", name:"synapse.png", desc:"Synapse", url:"https://upload.wikimedia.org/wikipedia/commons/a/a6/Blausen_0803_Synapse.png", tags:["histologie","synapse"], pathologies:["Alzheimer","Parkinson"] },
+          { id:"N13", name:"synapse-chimique.jpg", desc:"Synapse chimique détaillée", url:"https://upload.wikimedia.org/wikipedia/commons/4/4a/Chemical_synapse_schema_cropped.jpg", tags:["histologie","synapse","neurotransmetteurs"], pathologies:[] },
+          { id:"N14", name:"potentiel-action.gif", desc:"Potentiel d'action neuronal", url:"https://upload.wikimedia.org/wikipedia/commons/9/95/Action_Potential.gif", tags:["physiologie","potentiel d'action"], pathologies:["Épilepsie"] },
+          { id:"N15", name:"moelle-epiniere.png", desc:"Moelle épinière", url:"https://upload.wikimedia.org/wikipedia/commons/f/f8/Blausen_0822_SpinalCord.png", tags:["anatomie","moelle épinière"], pathologies:[] },
+          { id:"N16", name:"moelle-coupe.svg", desc:"Coupe transversale moelle", url:"https://upload.wikimedia.org/wikipedia/commons/d/dc/Spinal_cord_cross_section.svg", tags:["anatomie","moelle épinière","coupe"], pathologies:["SEP"] },
+          { id:"N17", name:"systeme-nerveux.jpg", desc:"Vue d'ensemble système nerveux", url:"https://upload.wikimedia.org/wikipedia/commons/b/ba/1201_Overview_of_Nervous_System.jpg", tags:["anatomie","système nerveux"], pathologies:[] },
+          { id:"N18", name:"alzheimer-cerveau.jpg", desc:"Cerveau Alzheimer vs normal", url:"https://upload.wikimedia.org/wikipedia/commons/a/a5/Alzheimer%27s_disease_brain_comparison.jpg", tags:["pathologie","Alzheimer","atrophie"], pathologies:["Alzheimer"] },
+          { id:"N19", name:"parkinson.png", desc:"Maladie de Parkinson", url:"https://upload.wikimedia.org/wikipedia/commons/3/35/Blausen_0704_ParkinsonsDisease.png", tags:["pathologie","Parkinson","dopamine"], pathologies:["Parkinson"] },
+          { id:"N20", name:"migraine.png", desc:"Migraine", url:"https://upload.wikimedia.org/wikipedia/commons/9/9f/Blausen_0649_Migraine.png", tags:["pathologie","migraine","céphalée"], pathologies:["Migraine"] },
+          { id:"N21", name:"epilepsie.png", desc:"Épilepsie", url:"https://upload.wikimedia.org/wikipedia/commons/4/47/Blausen_0333_Epilepsy.png", tags:["pathologie","épilepsie","convulsions"], pathologies:["Épilepsie"] },
+          { id:"N22", name:"meningite.png", desc:"Méningite", url:"https://upload.wikimedia.org/wikipedia/commons/8/85/Blausen_0631_Meningitis.png", tags:["pathologie","méningite","infection"], pathologies:["Méningite"] },
+          { id:"N23", name:"meninges.svg", desc:"Méninges", url:"https://upload.wikimedia.org/wikipedia/commons/8/8e/Meninges-en.svg", tags:["anatomie","méninges"], pathologies:["Méningite"] },
+          { id:"N24", name:"dermatomes-posterieur.svg", desc:"Dermatomes face postérieure", url:"https://upload.wikimedia.org/wikipedia/commons/8/8f/Dermatomes_and_cutaneous_nerves_-_posterior.svg", tags:["anatomie","dermatomes","neurologie"], pathologies:[] },
+          { id:"N25", name:"dermatomes-anterieur.svg", desc:"Dermatomes face antérieure", url:"https://upload.wikimedia.org/wikipedia/commons/c/cf/Dermatomes_and_cutaneous_nerves_-_anterior.svg", tags:["anatomie","dermatomes","neurologie"], pathologies:[] },
+          { id:"N26", name:"ventricules-cerebraux.png", desc:"Ventricules cérébraux", url:"https://upload.wikimedia.org/wikipedia/commons/d/d4/Blausen_0896_Ventricles_Brain.png", tags:["anatomie","ventricules","LCR"], pathologies:[] },
+          { id:"N27", name:"systeme-limbique.png", desc:"Système limbique", url:"https://upload.wikimedia.org/wikipedia/commons/5/5e/Blausen_0614_LimbicSystem.png", tags:["anatomie","limbique","émotions"], pathologies:["Alzheimer"] },
+          { id:"N28", name:"barriere-hemato-encephalique.png", desc:"Barrière hémato-encéphalique", url:"https://upload.wikimedia.org/wikipedia/commons/4/46/Blausen_0104_BloodBrainBarrier.png", tags:["physiologie","BHE"], pathologies:["Méningite","SEP"] },
+          { id:"N29", name:"nerfs-craniens.svg", desc:"Nerfs crâniens", url:"https://upload.wikimedia.org/wikipedia/commons/2/20/Brain_human_normal_inferior_view_with_labels_en.svg", tags:["anatomie","nerfs crâniens"], pathologies:[] },
+        ]
+      },
+      respiratoire: {
+        label: "Respiratoire", icon: "🫁",
+        pathologies: ["Asthme", "BPCO", "Pneumonie", "Pneumothorax", "Embolie pulmonaire", "SDRA", "Cancer poumon", "Tuberculose"],
+        images: [
+          { id:"R01", name:"systeme-respiratoire.png", desc:"Système respiratoire complet", url:"https://upload.wikimedia.org/wikipedia/commons/d/db/Blausen_0770_RespiratorySystem_02.png", tags:["anatomie","poumons"], pathologies:[] },
+          { id:"R02", name:"poumons.png", desc:"Poumons", url:"https://upload.wikimedia.org/wikipedia/commons/a/a9/Blausen_0620_Lungs_Background.png", tags:["anatomie","poumons"], pathologies:[] },
+          { id:"R03", name:"bronches.png", desc:"Bronches", url:"https://upload.wikimedia.org/wikipedia/commons/b/b6/Blausen_0165_Bronchiole.png", tags:["anatomie","bronches"], pathologies:["Asthme","BPCO"] },
+          { id:"R04", name:"bronchioles.png", desc:"Bronchioles", url:"https://upload.wikimedia.org/wikipedia/commons/4/4d/Blausen_0168_Bronchioles.png", tags:["anatomie","bronchioles"], pathologies:["Asthme"] },
+          { id:"R05", name:"alveoles.png", desc:"Alvéoles pulmonaires", url:"https://upload.wikimedia.org/wikipedia/commons/f/f9/Blausen_0016_Alveolus.png", tags:["anatomie","alvéoles"], pathologies:["Pneumonie","SDRA"] },
+          { id:"R06", name:"arbre-bronchique.png", desc:"Arbre bronchique", url:"https://upload.wikimedia.org/wikipedia/commons/9/9f/Blausen_0014_Airways.png", tags:["anatomie","bronches"], pathologies:[] },
+          { id:"R07", name:"voies-respiratoires.png", desc:"Voies respiratoires", url:"https://upload.wikimedia.org/wikipedia/commons/0/08/Blausen_0767_RespiratoryRoutes.png", tags:["anatomie","voies aériennes"], pathologies:[] },
+          { id:"R08", name:"asthme-attaque.jpg", desc:"Crise d'asthme", url:"https://upload.wikimedia.org/wikipedia/commons/8/8b/Asthma_attack-illustration_NIH.jpg", tags:["pathologie","asthme","bronchospasme"], pathologies:["Asthme"] },
+          { id:"R09", name:"bpco.jpg", desc:"BPCO", url:"https://upload.wikimedia.org/wikipedia/commons/3/31/Copd_2010.jpg", tags:["pathologie","BPCO","emphysème"], pathologies:["BPCO"] },
+          { id:"R10", name:"pneumothorax.png", desc:"Pneumothorax", url:"https://upload.wikimedia.org/wikipedia/commons/a/a2/Blausen_0742_Pneumothorax.png", tags:["pathologie","pneumothorax","urgence"], pathologies:["Pneumothorax"] },
+          { id:"R11", name:"pneumonie.png", desc:"Pneumonie", url:"https://upload.wikimedia.org/wikipedia/commons/a/ab/Blausen_0706_Pneumonia.png", tags:["pathologie","pneumonie","infection"], pathologies:["Pneumonie"] },
+          { id:"R12", name:"sdra.png", desc:"SDRA", url:"https://upload.wikimedia.org/wikipedia/commons/2/2c/Blausen_0620_ARDS.png", tags:["pathologie","SDRA","réanimation"], pathologies:["SDRA"] },
+          { id:"R13", name:"alveole-schema.svg", desc:"Schéma alvéole", url:"https://upload.wikimedia.org/wikipedia/commons/4/4b/Alveolus_diagram.svg", tags:["physiologie","alvéoles","échanges gazeux"], pathologies:[] },
+          { id:"R14", name:"echanges-gazeux.svg", desc:"Échanges gazeux alvéolaires", url:"https://upload.wikimedia.org/wikipedia/commons/0/0b/Gas_exchange_in_the_aveolus.svg", tags:["physiologie","échanges gazeux","O2","CO2"], pathologies:["SDRA"] },
+          { id:"R15", name:"respiration-diaphragme.gif", desc:"Respiration diaphragmatique", url:"https://upload.wikimedia.org/wikipedia/commons/e/e4/Diaphragm_breathing.gif", tags:["physiologie","diaphragme","mécanique"], pathologies:[] },
+          { id:"R16", name:"spirometrie.jpg", desc:"Spirométrie", url:"https://upload.wikimedia.org/wikipedia/commons/b/b4/Spirometry_NIH.jpg", tags:["diagnostic","spirométrie","EFR"], pathologies:["Asthme","BPCO"] },
+          { id:"R17", name:"volumes-pulmonaires.svg", desc:"Volumes pulmonaires", url:"https://upload.wikimedia.org/wikipedia/commons/3/3b/Lungvolumes.svg", tags:["physiologie","volumes","EFR"], pathologies:["BPCO"] },
+          { id:"R18", name:"cavite-pleurale.png", desc:"Cavité pleurale", url:"https://upload.wikimedia.org/wikipedia/commons/2/2f/Blausen_0607_Lungs_PleuralCavity.png", tags:["anatomie","plèvre"], pathologies:["Pneumothorax"] },
+          { id:"R19", name:"diaphragme.png", desc:"Position du diaphragme", url:"https://upload.wikimedia.org/wikipedia/commons/d/d7/Blausen_0313_DiaphragmPosition.png", tags:["anatomie","diaphragme"], pathologies:[] },
+          { id:"R20", name:"cancer-poumon.png", desc:"Cancer du poumon", url:"https://upload.wikimedia.org/wikipedia/commons/f/f1/Blausen_0620_LungCancer.png", tags:["pathologie","cancer","poumon"], pathologies:["Cancer poumon"] },
+          { id:"R21", name:"tuberculose-radio.jpg", desc:"Radiographie tuberculose", url:"https://upload.wikimedia.org/wikipedia/commons/5/5d/Tuberculosis-x-ray-1.jpg", tags:["diagnostic","radiographie","tuberculose"], pathologies:["Tuberculose"] },
+          { id:"R22", name:"courbe-dissociation-hb.png", desc:"Courbe de dissociation Hb-O2", url:"https://upload.wikimedia.org/wikipedia/commons/8/8a/Oxy-hemoglobin_dissociation_curve.png", tags:["physiologie","hémoglobine","O2"], pathologies:[] },
+          { id:"R23", name:"muscles-respiratoires.png", desc:"Muscles de la respiration", url:"https://upload.wikimedia.org/wikipedia/commons/9/95/Blausen_0615_MusclesofRespiration.png", tags:["anatomie","muscles","respiration"], pathologies:[] },
+          { id:"R24", name:"trachee.png", desc:"Anatomie trachée", url:"https://upload.wikimedia.org/wikipedia/commons/7/7f/Blausen_0862_TracheaAnatomy.png", tags:["anatomie","trachée"], pathologies:[] },
+        ]
+      },
+      digestif: {
+        label: "Digestif", icon: "🔬",
+        pathologies: ["RGO", "Ulcère", "Cirrhose", "Hépatite", "Appendicite", "Cholécystite", "Pancréatite", "Crohn", "RCH", "Cancer colorectal"],
+        images: [
+          { id:"D01", name:"systeme-digestif.png", desc:"Système digestif complet", url:"https://upload.wikimedia.org/wikipedia/commons/c/c5/Blausen_0316_DigestiveSystem.png", tags:["anatomie","digestif"], pathologies:[] },
+          { id:"D02", name:"intestin-grele.png", desc:"Intestin grêle anatomie", url:"https://upload.wikimedia.org/wikipedia/commons/9/90/Blausen_0817_SmallIntestine_Anatomy.png", tags:["anatomie","intestin grêle"], pathologies:["Crohn"] },
+          { id:"D03", name:"colon.png", desc:"Côlon anatomie", url:"https://upload.wikimedia.org/wikipedia/commons/4/42/Blausen_0603_LargeIntestine_Anatomy.png", tags:["anatomie","côlon"], pathologies:["RCH","Cancer colorectal"] },
+          { id:"D04", name:"estomac.png", desc:"Anatomie estomac", url:"https://upload.wikimedia.org/wikipedia/commons/b/b5/Blausen_0817_Stomach_Anatomy.png", tags:["anatomie","estomac"], pathologies:["Ulcère","RGO"] },
+          { id:"D05", name:"foie-pancreas.png", desc:"Foie et pancréas position", url:"https://upload.wikimedia.org/wikipedia/commons/9/94/Blausen_0428_Gallbladder-Liver-Pancreas_Location.png", tags:["anatomie","foie","pancréas"], pathologies:[] },
+          { id:"D06", name:"foie.png", desc:"Foie anatomie", url:"https://upload.wikimedia.org/wikipedia/commons/2/21/Blausen_0613_Liver.png", tags:["anatomie","foie"], pathologies:["Cirrhose","Hépatite"] },
+          { id:"D07", name:"vesicule-biliaire.png", desc:"Vésicule biliaire", url:"https://upload.wikimedia.org/wikipedia/commons/a/a6/Blausen_0425_GallbladderAnatomy.png", tags:["anatomie","vésicule"], pathologies:["Cholécystite"] },
+          { id:"D08", name:"pancreas.png", desc:"Pancréas anatomie", url:"https://upload.wikimedia.org/wikipedia/commons/6/64/Blausen_0701_PancreasAnatomy2.png", tags:["anatomie","pancréas"], pathologies:["Pancréatite"] },
+          { id:"D09", name:"oesophage.png", desc:"Œsophage", url:"https://upload.wikimedia.org/wikipedia/commons/e/e5/Blausen_0346_Esophagus.png", tags:["anatomie","œsophage"], pathologies:["RGO"] },
+          { id:"D10", name:"rgo.png", desc:"Reflux gastro-œsophagien", url:"https://upload.wikimedia.org/wikipedia/commons/4/4e/Blausen_0432_GastroesophagealReflux.png", tags:["pathologie","RGO","reflux"], pathologies:["RGO"] },
+          { id:"D11", name:"ulcere-gastrique.png", desc:"Ulcère gastrique", url:"https://upload.wikimedia.org/wikipedia/commons/e/ef/Blausen_0439_GastricUlcer.png", tags:["pathologie","ulcère","estomac"], pathologies:["Ulcère"] },
+          { id:"D12", name:"cirrhose.png", desc:"Cirrhose hépatique", url:"https://upload.wikimedia.org/wikipedia/commons/5/5a/Blausen_0173_Cirrhosis.png", tags:["pathologie","cirrhose","foie"], pathologies:["Cirrhose"] },
+          { id:"D13", name:"hepatite.png", desc:"Hépatite", url:"https://upload.wikimedia.org/wikipedia/commons/e/e4/Blausen_0455_Hepatitis.png", tags:["pathologie","hépatite","foie"], pathologies:["Hépatite"] },
+          { id:"D14", name:"appendicite.png", desc:"Appendicite", url:"https://upload.wikimedia.org/wikipedia/commons/a/a8/Blausen_0006_Appendicitis.png", tags:["pathologie","appendicite","urgence"], pathologies:["Appendicite"] },
+          { id:"D15", name:"cholecystite.png", desc:"Cholécystite", url:"https://upload.wikimedia.org/wikipedia/commons/1/17/Blausen_0216_Cholecystitis.png", tags:["pathologie","cholécystite","vésicule"], pathologies:["Cholécystite"] },
+          { id:"D16", name:"pancreatite.png", desc:"Pancréatite", url:"https://upload.wikimedia.org/wikipedia/commons/c/c5/Blausen_0696_Pancreatitis.png", tags:["pathologie","pancréatite"], pathologies:["Pancréatite"] },
+          { id:"D17", name:"crohn.png", desc:"Maladie de Crohn", url:"https://upload.wikimedia.org/wikipedia/commons/a/ae/Blausen_0286_CrohnsDisease.png", tags:["pathologie","Crohn","MICI"], pathologies:["Crohn"] },
+          { id:"D18", name:"rch.png", desc:"Rectocolite hémorragique", url:"https://upload.wikimedia.org/wikipedia/commons/8/8e/Blausen_0879_UlcerativeColitis.png", tags:["pathologie","RCH","MICI"], pathologies:["RCH"] },
+          { id:"D19", name:"cancer-colorectal.png", desc:"Cancer colorectal", url:"https://upload.wikimedia.org/wikipedia/commons/4/49/Blausen_0189_ColorectalCancer.png", tags:["pathologie","cancer","côlon"], pathologies:["Cancer colorectal"] },
+          { id:"D20", name:"hemorroides.png", desc:"Hémorroïdes anatomie", url:"https://upload.wikimedia.org/wikipedia/commons/6/6b/Blausen_0449_HemorrhoidAnatomy.png", tags:["pathologie","hémorroïdes"], pathologies:[] },
+          { id:"D21", name:"hernie-hiatale.png", desc:"Hernie hiatale", url:"https://upload.wikimedia.org/wikipedia/commons/2/2b/Blausen_0459_HerniatedDiaphragm.png", tags:["pathologie","hernie","diaphragme"], pathologies:["RGO"] },
+          { id:"D22", name:"hernie-inguinale.png", desc:"Hernie inguinale", url:"https://upload.wikimedia.org/wikipedia/commons/c/cc/Blausen_0472_InguinalHernia.png", tags:["pathologie","hernie"], pathologies:[] },
+          { id:"D23", name:"calculs-biliaires.png", desc:"Calculs biliaires", url:"https://upload.wikimedia.org/wikipedia/commons/6/66/Blausen_0433_GallstonesinBileDuct.png", tags:["pathologie","calculs","voies biliaires"], pathologies:["Cholécystite"] },
+        ]
+      },
+      metabolique: {
+        label: "Métabolique", icon: "⚗️",
+        pathologies: ["Diabète type 1", "Diabète type 2", "Hypothyroïdie", "Hyperthyroïdie", "Obésité"],
+        images: [
+          { id:"M01", name:"diabete.png", desc:"Diabète vue d'ensemble", url:"https://upload.wikimedia.org/wikipedia/commons/c/c2/Blausen_0314_Diabetes_Overview.png", tags:["pathologie","diabète"], pathologies:["Diabète type 1","Diabète type 2"] },
+          { id:"M02", name:"diabete-type1.png", desc:"Diabète type 1", url:"https://upload.wikimedia.org/wikipedia/commons/2/27/Blausen_0312_Diabetes_Type1.png", tags:["pathologie","diabète","auto-immun"], pathologies:["Diabète type 1"] },
+          { id:"M03", name:"diabete-type2.png", desc:"Diabète type 2", url:"https://upload.wikimedia.org/wikipedia/commons/9/90/Blausen_0313_Diabetes_Type2.png", tags:["pathologie","diabète","insulinorésistance"], pathologies:["Diabète type 2"] },
+          { id:"M04", name:"insuline-glucose.svg", desc:"Métabolisme insuline-glucose", url:"https://upload.wikimedia.org/wikipedia/commons/d/dc/Insulin_glucose_metabolism_ZP.svg", tags:["physiologie","insuline","glucose"], pathologies:["Diabète type 1","Diabète type 2"] },
+          { id:"M05", name:"thyroide.png", desc:"Thyroïde", url:"https://upload.wikimedia.org/wikipedia/commons/c/c4/Blausen_0846_Thyroid.png", tags:["anatomie","thyroïde"], pathologies:["Hypothyroïdie","Hyperthyroïdie"] },
+          { id:"M06", name:"goitre.png", desc:"Goitre thyroïdien", url:"https://upload.wikimedia.org/wikipedia/commons/3/3e/Blausen_0534_Goiter.png", tags:["pathologie","goitre","thyroïde"], pathologies:["Hypothyroïdie","Hyperthyroïdie"] },
+          { id:"M07", name:"surrenales.png", desc:"Glandes surrénales", url:"https://upload.wikimedia.org/wikipedia/commons/5/52/Blausen_0015_AdrenalGlands.png", tags:["anatomie","surrénales","cortisol"], pathologies:[] },
+          { id:"M08", name:"ilots-langerhans.png", desc:"Îlots de Langerhans", url:"https://upload.wikimedia.org/wikipedia/commons/2/28/Blausen_0561_IsletOfLangerhans.png", tags:["histologie","pancréas","insuline"], pathologies:["Diabète type 1"] },
+          { id:"M09", name:"obesite.png", desc:"Obésité", url:"https://upload.wikimedia.org/wikipedia/commons/6/69/Blausen_0682_Obesity.png", tags:["pathologie","obésité"], pathologies:["Obésité"] },
+          { id:"M10", name:"systeme-endocrinien.png", desc:"Système endocrinien", url:"https://upload.wikimedia.org/wikipedia/commons/f/f4/Blausen_0330_EndocrineSystem_Female2.png", tags:["anatomie","endocrinien"], pathologies:[] },
+          { id:"M11", name:"hyperthyroidie.png", desc:"Hyperthyroïdie", url:"https://upload.wikimedia.org/wikipedia/commons/f/fd/Blausen_0561_Hyperthyroidism.png", tags:["pathologie","hyperthyroïdie"], pathologies:["Hyperthyroïdie"] },
+          { id:"M12", name:"hypothyroidie.png", desc:"Hypothyroïdie", url:"https://upload.wikimedia.org/wikipedia/commons/d/d7/Blausen_0564_Hypothyroidism.png", tags:["pathologie","hypothyroïdie"], pathologies:["Hypothyroïdie"] },
+          { id:"M13", name:"nephropathie-diabetique.png", desc:"Néphropathie diabétique", url:"https://upload.wikimedia.org/wikipedia/commons/8/8f/Blausen_0315_DiabeticNephropathy.png", tags:["pathologie","complications","diabète","rein"], pathologies:["Diabète type 2"] },
+          { id:"M14", name:"neuropathie-diabetique.png", desc:"Neuropathie diabétique", url:"https://upload.wikimedia.org/wikipedia/commons/2/22/Blausen_0316_DiabeticNeuropathy.png", tags:["pathologie","complications","diabète","nerf"], pathologies:["Diabète type 2"] },
+          { id:"M15", name:"retinopathie-diabetique.png", desc:"Rétinopathie diabétique", url:"https://upload.wikimedia.org/wikipedia/commons/3/31/Blausen_0317_DiabeticRetinopathy.png", tags:["pathologie","complications","diabète","rétine"], pathologies:["Diabète type 2"] },
+        ]
+      },
+      nephrologie: {
+        label: "Néphrologie", icon: "🫘",
+        pathologies: ["IRC", "Calculs rénaux", "Infection urinaire", "Glomérulonéphrite"],
+        images: [
+          { id:"NE01", name:"rein-anatomie.png", desc:"Anatomie rein", url:"https://upload.wikimedia.org/wikipedia/commons/7/7e/Blausen_0592_KidneyAnatomy_01.png", tags:["anatomie","rein"], pathologies:[] },
+          { id:"NE02", name:"nephron.png", desc:"Anatomie néphron", url:"https://upload.wikimedia.org/wikipedia/commons/4/41/Blausen_0630_Nephron_Anatomy.png", tags:["anatomie","néphron","filtration"], pathologies:["IRC","Glomérulonéphrite"] },
+          { id:"NE03", name:"systeme-urinaire.png", desc:"Système urinaire", url:"https://upload.wikimedia.org/wikipedia/commons/1/17/Blausen_0870_UrinarySystem_Female.png", tags:["anatomie","urinaire"], pathologies:[] },
+          { id:"NE04", name:"glomerule.svg", desc:"Glomérule", url:"https://upload.wikimedia.org/wikipedia/commons/7/7b/Glomerulus-en.svg", tags:["anatomie","glomérule","filtration"], pathologies:["Glomérulonéphrite","IRC"] },
+          { id:"NE05", name:"calculs-renaux.png", desc:"Calculs rénaux", url:"https://upload.wikimedia.org/wikipedia/commons/8/8c/Blausen_0599_KidneyStones.png", tags:["pathologie","lithiase","calculs"], pathologies:["Calculs rénaux"] },
+          { id:"NE06", name:"hemodialyse.png", desc:"Hémodialyse", url:"https://upload.wikimedia.org/wikipedia/commons/e/ea/Blausen_0580_Hemodialysis.png", tags:["traitement","dialyse"], pathologies:["IRC"] },
+          { id:"NE07", name:"vessie.png", desc:"Vessie", url:"https://upload.wikimedia.org/wikipedia/commons/5/5f/Blausen_0091_Bladder.png", tags:["anatomie","vessie"], pathologies:["Infection urinaire"] },
+          { id:"NE08", name:"infection-urinaire.png", desc:"Infection urinaire", url:"https://upload.wikimedia.org/wikipedia/commons/9/99/Blausen_0880_UrinaryTractInfection.png", tags:["pathologie","infection","urinaire"], pathologies:["Infection urinaire"] },
+          { id:"NE09", name:"hydronephrose.png", desc:"Hydronéphrose", url:"https://upload.wikimedia.org/wikipedia/commons/0/08/Blausen_0465_HydronephrosisRight.png", tags:["pathologie","hydronéphrose"], pathologies:["Calculs rénaux"] },
+          { id:"NE10", name:"polykystose-renale.png", desc:"Polykystose rénale", url:"https://upload.wikimedia.org/wikipedia/commons/3/36/Blausen_0726_PolycysticKidney.png", tags:["pathologie","polykystose","génétique"], pathologies:["IRC"] },
+        ]
+      },
+      rhumatologie: {
+        label: "Rhumatologie", icon: "🦴",
+        pathologies: ["Polyarthrite rhumatoïde", "Arthrose", "Ostéoporose", "Goutte", "Lombalgie"],
+        images: [
+          { id:"RH01", name:"genou-anatomie.png", desc:"Genou anatomie", url:"https://upload.wikimedia.org/wikipedia/commons/0/05/Blausen_0594_KneeAnatomy_Side.png", tags:["anatomie","genou"], pathologies:["Arthrose"] },
+          { id:"RH02", name:"osteoporose.png", desc:"Ostéoporose", url:"https://upload.wikimedia.org/wikipedia/commons/8/80/Blausen_0686_Osteoporosis_01.png", tags:["pathologie","ostéoporose","os"], pathologies:["Ostéoporose"] },
+          { id:"RH03", name:"articulation-synoviale.svg", desc:"Articulation synoviale", url:"https://upload.wikimedia.org/wikipedia/commons/b/bf/Synovial_joint.svg", tags:["anatomie","articulation","synovie"], pathologies:["Polyarthrite rhumatoïde","Arthrose"] },
+          { id:"RH04", name:"squelette.png", desc:"Vue d'ensemble squelette", url:"https://upload.wikimedia.org/wikipedia/commons/4/4b/Blausen_0790_SkeletalSystem_Overview.png", tags:["anatomie","squelette"], pathologies:[] },
+          { id:"RH05", name:"arthrite.png", desc:"Arthrite", url:"https://upload.wikimedia.org/wikipedia/commons/e/e3/Blausen_0597_Arthritis.png", tags:["pathologie","arthrite","inflammation"], pathologies:["Polyarthrite rhumatoïde"] },
+          { id:"RH06", name:"colonne-vertebrale.png", desc:"Colonne vertébrale", url:"https://upload.wikimedia.org/wikipedia/commons/5/54/Blausen_0822_SpinalColumn.png", tags:["anatomie","rachis","vertèbres"], pathologies:["Lombalgie"] },
+          { id:"RH07", name:"hernie-discale.png", desc:"Hernie discale", url:"https://upload.wikimedia.org/wikipedia/commons/f/f0/Blausen_0484_HerniatedLumbarDisc.png", tags:["pathologie","hernie discale","rachis"], pathologies:["Lombalgie"] },
+          { id:"RH08", name:"goutte.png", desc:"Goutte", url:"https://upload.wikimedia.org/wikipedia/commons/0/00/Blausen_0396_Gout.png", tags:["pathologie","goutte","acide urique"], pathologies:["Goutte"] },
+          { id:"RH09", name:"fracture.png", desc:"Fracture osseuse", url:"https://upload.wikimedia.org/wikipedia/commons/a/a6/Blausen_0400_FractureTypes.png", tags:["pathologie","fracture","os"], pathologies:["Ostéoporose"] },
+        ]
+      },
+      hematologie: {
+        label: "Hématologie", icon: "🩸",
+        pathologies: ["Anémie", "Leucémie", "Lymphome", "Drépanocytose"],
+        images: [
+          { id:"H01", name:"cellules-sanguines.png", desc:"Cellules sanguines", url:"https://upload.wikimedia.org/wikipedia/commons/2/2e/Blausen_0079_Blood_cells.png", tags:["histologie","sang","cellules"], pathologies:[] },
+          { id:"H02", name:"globules-rouges.png", desc:"Globules rouges", url:"https://upload.wikimedia.org/wikipedia/commons/1/1d/Blausen_0761_RedBloodCells.png", tags:["histologie","érythrocytes"], pathologies:["Anémie","Drépanocytose"] },
+          { id:"H03", name:"globules-blancs.png", desc:"Globules blancs", url:"https://upload.wikimedia.org/wikipedia/commons/3/3c/Blausen_0909_WhiteBloodCells.png", tags:["histologie","leucocytes"], pathologies:["Leucémie"] },
+          { id:"H04", name:"plaquettes.png", desc:"Plaquettes sanguines", url:"https://upload.wikimedia.org/wikipedia/commons/0/04/Blausen_0739_Platelets.png", tags:["histologie","plaquettes","hémostase"], pathologies:[] },
+          { id:"H05", name:"coagulation.svg", desc:"Cascade de coagulation", url:"https://upload.wikimedia.org/wikipedia/commons/e/e1/Coagulation_full.svg", tags:["physiologie","coagulation","hémostase"], pathologies:[] },
+          { id:"H06", name:"moelle-osseuse.png", desc:"Moelle osseuse", url:"https://upload.wikimedia.org/wikipedia/commons/3/33/Blausen_0095_BoneMarrow.png", tags:["anatomie","moelle osseuse","hématopoïèse"], pathologies:["Leucémie","Lymphome"] },
+          { id:"H07", name:"drepanocytose.png", desc:"Drépanocytose", url:"https://upload.wikimedia.org/wikipedia/commons/3/38/Sickle_cell_disease.jpg", tags:["pathologie","drépanocytose","hémoglobine S"], pathologies:["Drépanocytose"] },
+          { id:"H08", name:"rate.png", desc:"Rate anatomie", url:"https://upload.wikimedia.org/wikipedia/commons/0/0c/Blausen_0822_Spleen.png", tags:["anatomie","rate"], pathologies:["Lymphome"] },
+          { id:"H09", name:"ganglion-lymphatique.png", desc:"Ganglion lymphatique", url:"https://upload.wikimedia.org/wikipedia/commons/b/b1/Blausen_0623_LymphNode_Anatomy.png", tags:["anatomie","ganglion","lymphatique"], pathologies:["Lymphome"] },
+        ]
+      },
+      dermatologie: {
+        label: "Dermatologie", icon: "🧬",
+        pathologies: ["Eczéma", "Psoriasis", "Mélanome"],
+        images: [
+          { id:"DE01", name:"peau-coupe.png", desc:"Coupe de la peau", url:"https://upload.wikimedia.org/wikipedia/commons/c/c5/Blausen_0809_Skin_Anatomy.png", tags:["anatomie","peau","couches"], pathologies:[] },
+          { id:"DE02", name:"melanome.png", desc:"Mélanome", url:"https://upload.wikimedia.org/wikipedia/commons/6/6f/Melanoma.jpg", tags:["pathologie","mélanome","cancer"], pathologies:["Mélanome"] },
+          { id:"DE03", name:"epiderme.png", desc:"Épiderme", url:"https://upload.wikimedia.org/wikipedia/commons/3/36/Blausen_0335_EpidermalLayer.png", tags:["anatomie","épiderme"], pathologies:[] },
+          { id:"DE04", name:"glandes-peau.png", desc:"Glandes de la peau", url:"https://upload.wikimedia.org/wikipedia/commons/5/5d/Blausen_0808_Skin_SebaceousGland.png", tags:["anatomie","glandes","sébacées"], pathologies:[] },
+          { id:"DE05", name:"brulure.png", desc:"Degrés de brûlure", url:"https://upload.wikimedia.org/wikipedia/commons/1/1b/Blausen_0164_BurnDegrees.png", tags:["pathologie","brûlure","urgence"], pathologies:[] },
+        ]
+      },
+      ophtalmologie: {
+        label: "Ophtalmologie", icon: "👁️",
+        pathologies: ["Glaucome", "Cataracte", "DMLA"],
+        images: [
+          { id:"O01", name:"oeil-anatomie.png", desc:"Anatomie de l'œil", url:"https://upload.wikimedia.org/wikipedia/commons/7/74/Blausen_0388_EyeAnatomy_01.png", tags:["anatomie","œil"], pathologies:[] },
+          { id:"O02", name:"retine.png", desc:"Rétine", url:"https://upload.wikimedia.org/wikipedia/commons/5/55/Blausen_0389_EyeAnatomy_02.png", tags:["anatomie","rétine"], pathologies:["DMLA"] },
+          { id:"O03", name:"glaucome.png", desc:"Glaucome", url:"https://upload.wikimedia.org/wikipedia/commons/f/f3/Blausen_0390_Glaucoma_01.png", tags:["pathologie","glaucome","pression"], pathologies:["Glaucome"] },
+          { id:"O04", name:"cataracte.png", desc:"Cataracte", url:"https://upload.wikimedia.org/wikipedia/commons/b/b7/Blausen_0163_Cataract.png", tags:["pathologie","cataracte","cristallin"], pathologies:["Cataracte"] },
+          { id:"O05", name:"myopie-hypermetropie.svg", desc:"Myopie et hypermétropie", url:"https://upload.wikimedia.org/wikipedia/commons/4/48/Myopia_and_hyperopia.svg", tags:["pathologie","réfraction","myopie"], pathologies:[] },
+        ]
+      },
+      infectiologie: {
+        label: "Infectiologie", icon: "🦠",
+        pathologies: ["VIH", "Tuberculose", "Sepsis", "COVID-19", "Méningite bactérienne"],
+        images: [
+          { id:"I01", name:"bacterie.png", desc:"Bactérie", url:"https://upload.wikimedia.org/wikipedia/commons/b/b5/Blausen_0068_Bacterium.png", tags:["microbiologie","bactérie"], pathologies:[] },
+          { id:"I02", name:"virus.png", desc:"Virus", url:"https://upload.wikimedia.org/wikipedia/commons/c/c0/Blausen_0898_Virus.png", tags:["microbiologie","virus"], pathologies:[] },
+          { id:"I03", name:"immunoglobuline.png", desc:"Immunoglobuline", url:"https://upload.wikimedia.org/wikipedia/commons/8/82/Blausen_0467_Immunoglobulin.png", tags:["immunologie","anticorps"], pathologies:[] },
+          { id:"I04", name:"phagocytose.png", desc:"Phagocytose", url:"https://upload.wikimedia.org/wikipedia/commons/d/d9/Blausen_0699_Phagocytosis.png", tags:["immunologie","phagocytose","macrophage"], pathologies:[] },
+          { id:"I05", name:"vih.png", desc:"VIH", url:"https://upload.wikimedia.org/wikipedia/commons/7/78/Blausen_0463_HIV_Labels.png", tags:["pathologie","VIH","rétrovirus"], pathologies:["VIH"] },
+          { id:"I06", name:"tuberculose.png", desc:"Tuberculose", url:"https://upload.wikimedia.org/wikipedia/commons/5/50/Blausen_0868_Tuberculosis.png", tags:["pathologie","tuberculose","BK"], pathologies:["Tuberculose"] },
+          { id:"I07", name:"sepsis.png", desc:"Sepsis", url:"https://upload.wikimedia.org/wikipedia/commons/9/98/Blausen_0779_Sepsis.png", tags:["pathologie","sepsis","urgence"], pathologies:["Sepsis"] },
+          { id:"I08", name:"coronavirus.svg", desc:"Structure coronavirus", url:"https://upload.wikimedia.org/wikipedia/commons/6/6e/Coronavirus_virion_structure.svg", tags:["microbiologie","coronavirus","COVID"], pathologies:["COVID-19"] },
+          { id:"I09", name:"meningite-infectio.png", desc:"Méningite bactérienne", url:"https://upload.wikimedia.org/wikipedia/commons/8/85/Blausen_0631_Meningitis.png", tags:["pathologie","méningite","bactérie"], pathologies:["Méningite bactérienne"] },
+        ]
+      },
+      orl: {
+        label: "ORL", icon: "👂",
+        pathologies: ["Otite", "Sinusite", "Angine", "Surdité"],
+        images: [
+          { id:"ORL01", name:"oreille-anatomie.png", desc:"Anatomie de l'oreille", url:"https://upload.wikimedia.org/wikipedia/commons/e/e0/Blausen_0328_EarAnatomy.png", tags:["anatomie","oreille"], pathologies:["Otite","Surdité"] },
+          { id:"ORL02", name:"oreille-interne.png", desc:"Oreille interne", url:"https://upload.wikimedia.org/wikipedia/commons/7/70/Blausen_0329_EarAnatomy_InternalEar.png", tags:["anatomie","oreille interne","cochlée"], pathologies:["Surdité"] },
+          { id:"ORL03", name:"oreille-moyenne.png", desc:"Oreille moyenne", url:"https://upload.wikimedia.org/wikipedia/commons/d/dc/Blausen_0330_EarAnatomy_MiddleEar.png", tags:["anatomie","oreille moyenne"], pathologies:["Otite"] },
+          { id:"ORL04", name:"cavite-nasale.png", desc:"Cavité nasale", url:"https://upload.wikimedia.org/wikipedia/commons/f/f0/Blausen_0682_NasalCavity.png", tags:["anatomie","nez","sinus"], pathologies:["Sinusite"] },
+          { id:"ORL05", name:"amygdalite.png", desc:"Amygdalite", url:"https://upload.wikimedia.org/wikipedia/commons/b/b7/Blausen_0864_Tonsillitis.png", tags:["pathologie","angine","amygdales"], pathologies:["Angine"] },
+          { id:"ORL06", name:"amygdales-adenoides.png", desc:"Amygdales et végétations", url:"https://upload.wikimedia.org/wikipedia/commons/5/58/Blausen_0861_Tonsils%26Adenoids.png", tags:["anatomie","amygdales","végétations"], pathologies:["Angine"] },
+          { id:"ORL07", name:"sinusite.png", desc:"Sinusite", url:"https://upload.wikimedia.org/wikipedia/commons/c/c9/Blausen_0800_Sinusitis.png", tags:["pathologie","sinusite","sinus"], pathologies:["Sinusite"] },
+          { id:"ORL08", name:"surdite-conduction.png", desc:"Surdité de conduction", url:"https://upload.wikimedia.org/wikipedia/commons/9/91/Blausen_0579_HearingLoss_Conductive.png", tags:["pathologie","surdité","conduction"], pathologies:["Surdité"] },
+        ]
+      },
+      servier_kits: {
+        label: "Kits Servier (PPTX)", icon: "📦",
+        pathologies: [],
+        images: [
+          { id:"S01", name:"SMART-Heart-physiology.pptx", desc:"Kit Servier — Physiologie cardiaque", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Heart-physiology.pptx", tags:["kit","cœur","physiologie"], pathologies:[] },
+          { id:"S02", name:"SMART-Heart-pathophysiology.pptx", desc:"Kit Servier — Pathophysiologie cardiaque", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Heart-pathophysiology.pptx", tags:["kit","cœur","physiopathologie"], pathologies:[] },
+          { id:"S03", name:"SMART-Arteries-physiology.pptx", desc:"Kit Servier — Physiologie artérielle", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Arteries-physiology.pptx", tags:["kit","artères","physiologie"], pathologies:[] },
+          { id:"S04", name:"SMART-Arteries-pathophysiology.pptx", desc:"Kit Servier — Pathophysiologie artérielle", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Arteries-pathophysiology.pptx", tags:["kit","artères","physiopathologie"], pathologies:[] },
+          { id:"S05", name:"SMART-Arteries-atherothrombosis.pptx", desc:"Kit Servier — Athérothrombose", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Arteries-atherothrombosis.pptx", tags:["kit","athérothrombose"], pathologies:[] },
+          { id:"S06", name:"SMART-Nervous-system.pptx", desc:"Kit Servier — Système nerveux", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Nervous-system.pptx", tags:["kit","neurologie"], pathologies:[] },
+          { id:"S07", name:"SMART-Neural-cells.pptx", desc:"Kit Servier — Cellules neurales", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Neural-cells.pptx", tags:["kit","neurone"], pathologies:[] },
+          { id:"S08", name:"SMART-Respiratory-system.pptx", desc:"Kit Servier — Système respiratoire", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Respiratory-system.pptx", tags:["kit","respiratoire"], pathologies:[] },
+          { id:"S09", name:"SMART-Digestive-system.pptx", desc:"Kit Servier — Système digestif", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Digestive-system.pptx", tags:["kit","digestif"], pathologies:[] },
+          { id:"S10", name:"SMART-Urinary-system.pptx", desc:"Kit Servier — Système urinaire", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Urinary-system.pptx", tags:["kit","urinaire"], pathologies:[] },
+          { id:"S11", name:"SMART-Diabetes.pptx", desc:"Kit Servier — Diabète", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Diabetes.pptx", tags:["kit","diabète"], pathologies:[] },
+          { id:"S12", name:"SMART-Endocrinology.pptx", desc:"Kit Servier — Endocrinologie", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Endocrinology.pptx", tags:["kit","endocrinologie"], pathologies:[] },
+          { id:"S13", name:"SMART-Blood-immunology.pptx", desc:"Kit Servier — Sang et immunologie", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Blood-immunology.pptx", tags:["kit","hématologie","immunologie"], pathologies:[] },
+          { id:"S14", name:"SMART-Veins.pptx", desc:"Kit Servier — Veines", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Veins.pptx", tags:["kit","veines"], pathologies:[] },
+          { id:"S15", name:"SMART-Bones.pptx", desc:"Kit Servier — Os", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Bones.pptx", tags:["kit","os","rhumatologie"], pathologies:[] },
+          { id:"S16", name:"SMART-Muscles.pptx", desc:"Kit Servier — Muscles", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Muscles.pptx", tags:["kit","muscles"], pathologies:[] },
+          { id:"S17", name:"SMART-Oncology.pptx", desc:"Kit Servier — Oncologie", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Oncology.pptx", tags:["kit","oncologie","cancer"], pathologies:[] },
+          { id:"S18", name:"SMART-Infectiology.pptx", desc:"Kit Servier — Infectiologie", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Infectiology.pptx", tags:["kit","infectiologie"], pathologies:[] },
+          { id:"S19", name:"SMART-Dermatology.pptx", desc:"Kit Servier — Dermatologie", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Dermatology.pptx", tags:["kit","dermatologie"], pathologies:[] },
+          { id:"S20", name:"SMART-Ophthalmology.pptx", desc:"Kit Servier — Ophtalmologie", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Ophthalmology.pptx", tags:["kit","ophtalmologie"], pathologies:[] },
+          { id:"S21", name:"SMART-ENT.pptx", desc:"Kit Servier — ORL", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-ENT.pptx", tags:["kit","ORL"], pathologies:[] },
+          { id:"S22", name:"SMART-Risk-Factors.pptx", desc:"Kit Servier — Facteurs de risque", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Risk-Factors.pptx", tags:["kit","facteurs de risque"], pathologies:[] },
+          { id:"S23", name:"SMART-Lipids.pptx", desc:"Kit Servier — Lipides", url:"https://smart.servier.com/wp-content/uploads/2016/10/SMART-Lipids.pptx", tags:["kit","lipides","cholestérol"], pathologies:[] },
+          { id:"S24", name:"ServierMedicalArt-all-kits.zip", desc:"TOUS les kits Servier (170 Mo)", url:"https://smart.servier.com/wp-content/uploads/ServierMedicalArt-all-kits.zip", tags:["kit","archive","complet"], pathologies:[] },
+        ]
+      }
+    };
+
+    // ============================================================
+    // STATE
+    // ============================================================
+    let allImages = [];
+    let filteredImages = [];
+    let favorites = JSON.parse(localStorage.getItem('medref_favs') || '[]');
+    let urlStatus = {};
+    let activeCategory = 'all';
+    let viewMode = 'grid';
+    let selectMode = false;
+    let selectedIds = new Set();
+    let showFavsOnly = false;
+    let allTags = new Set();
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    function init() {
+        // Flatten database
+        for (const [catKey, catData] of Object.entries(DB)) {
+            for (const img of catData.images) {
+                allImages.push({
+                    ...img,
+                    category: catKey,
+                    categoryLabel: catData.label,
+                    categoryIcon: catData.icon,
+                    format: getFormat(img.name),
+                    license: img.url.includes('wikimedia') ? 'CC BY 3.0 / CC BY-SA' : 'CC BY 4.0 Servier',
+                });
+                img.tags.forEach(t => allTags.add(t));
+            }
+        }
+
+        // Build category chips
+        buildCategoryChips();
+        buildTagFilter();
+
+        // Stats
+        document.getElementById('totalCount').textContent = allImages.length;
+        document.getElementById('catCount').textContent = Object.keys(DB).length;
+
+        applyFilters();
+    }
+
+    function getFormat(name) {
+        const ext = name.split('.').pop().toLowerCase();
+        return ext;
+    }
+
+    // ============================================================
+    // CATEGORY CHIPS
+    // ============================================================
+    function buildCategoryChips() {
+        const container = document.getElementById('categoryChips');
+        let html = `<button class="chip active" data-cat="all" onclick="setCategory('all')">Toutes <span class="count">${allImages.length}</span></button>`;
+        for (const [key, data] of Object.entries(DB)) {
+            html += `<button class="chip" data-cat="${key}" onclick="setCategory('${key}')">${data.icon} ${data.label} <span class="count">${data.images.length}</span></button>`;
+        }
+        container.innerHTML = html;
+    }
+
+    function buildTagFilter() {
+        const select = document.getElementById('tagFilter');
+        const sorted = [...allTags].sort((a,b) => a.localeCompare(b, 'fr'));
+        sorted.forEach(tag => {
+            select.innerHTML += `<option value="${tag}">${tag}</option>`;
+        });
+    }
+
+    function setCategory(cat) {
+        activeCategory = cat;
+        document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.cat === cat));
+        applyFilters();
+    }
+
+    // ============================================================
+    // FILTERS
+    // ============================================================
+    function applyFilters() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        const formatFilter = document.getElementById('formatFilter').value;
+        const tagFilter = document.getElementById('tagFilter').value;
+
+        filteredImages = allImages.filter(img => {
+            if (activeCategory !== 'all' && img.category !== activeCategory) return false;
+            if (showFavsOnly && !favorites.includes(img.id)) return false;
+            if (formatFilter && img.format !== formatFilter) return false;
+            if (tagFilter && !img.tags.includes(tagFilter)) return false;
+            if (query) {
+                const haystack = [img.name, img.desc, img.categoryLabel, ...img.tags, ...(img.pathologies||[])].join(' ').toLowerCase();
+                const words = query.split(/\s+/);
+                return words.every(w => haystack.includes(w));
+            }
+            return true;
         });
 
-        // ============================================
-        // ICONS
-        // ============================================
-        const Icons = {
-            pulse: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>,
-            search: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>,
-            settings: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>,
-            chevronLeft: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>,
-            refresh: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>,
-            x: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>,
-            info: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>,
-            chart: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>,
-            brain: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg>,
-            activity: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>,
-            warning: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>,
-            file: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>,
-            pill: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>,
-            star: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
-            clock: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
-            check: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>,
-            sparkles: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>,
-            database: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>,
-            folder: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>,
-            sync: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>,
-        };
+        document.getElementById('filteredCount').textContent = filteredImages.length;
+        renderGrid();
+    }
 
-        // ============================================
-        // MAIN APP
-        // ============================================
-        function App() {
-            // State
-            const [apiKey, setApiKey] = useState(() => localStorage.getItem('medref_api_key') || '');
-            const [gistToken, setGistToken] = useState(() => localStorage.getItem('medref_gist_token') || '');
-            const [gistId, setGistId] = useState(() => localStorage.getItem('medref_gist_id') || '');
-            const [diseases, setDiseases] = useState(() => {
-                const saved = localStorage.getItem('medref_diseases');
-                return saved ? JSON.parse(saved) : {};
-            });
-            const [selectedDisease, setSelectedDisease] = useState(null);
-            const [searchQuery, setSearchQuery] = useState('');
-            const [selectedCategory, setSelectedCategory] = useState('Tous');
-            const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-            const [isLoading, setIsLoading] = useState(false);
-            const [loadingMessage, setLoadingMessage] = useState('');
-            const [toast, setToast] = useState(null);
+    function filterFavorites() {
+        showFavsOnly = !showFavsOnly;
+        document.getElementById('favFilterBtn').classList.toggle('btn-accent', showFavsOnly);
+        applyFilters();
+    }
 
-            // Persist data
-            useEffect(() => {
-                localStorage.setItem('medref_diseases', JSON.stringify(diseases));
-            }, [diseases]);
+    // ============================================================
+    // RENDER
+    // ============================================================
+    function renderGrid() {
+        const grid = document.getElementById('imageGrid');
 
-            useEffect(() => {
-                localStorage.setItem('medref_api_key', apiKey);
-            }, [apiKey]);
-
-            useEffect(() => {
-                localStorage.setItem('medref_gist_token', gistToken);
-            }, [gistToken]);
-
-            useEffect(() => {
-                localStorage.setItem('medref_gist_id', gistId);
-            }, [gistId]);
-
-            // Toast notification
-            const showToast = useCallback((message) => {
-                setToast(message);
-                setTimeout(() => setToast(null), 3500);
-            }, []);
-
-            // API Call
-            const callAPI = async (prompt) => {
-                const headers = {
-                    'Content-Type': 'application/json',
-                };
-
-                let url, body;
-
-                if (USE_PROXY) {
-                    url = PROXY_URL;
-                    body = JSON.stringify({
-                        prompt: prompt,
-                        apiKey: apiKey
-                    });
-                } else {
-                    url = 'https://api.anthropic.com/v1/messages';
-                    headers['x-api-key'] = apiKey;
-                    headers['anthropic-version'] = '2023-06-01';
-                    headers['anthropic-dangerous-direct-browser-access'] = 'true';
-                    body = JSON.stringify({
-                        model: 'claude-sonnet-4-20250514',
-                        max_tokens: 4000,
-                        messages: [{ role: 'user', content: prompt }]
-                    });
-                }
-
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers,
-                    body
-                });
-
-                if (!response.ok) {
-                    const error = await response.text();
-                    throw new Error(`API Error ${response.status}: ${error}`);
-                }
-
-                const data = await response.json();
-                return USE_PROXY ? data.content : data.content[0].text;
-            };
-
-            // Generate disease card
-            const generateDiseaseCard = async (diseaseInfo) => {
-                if (!apiKey) {
-                    showToast('⚠️ Configurez votre clé API Groq (gratuite) dans les paramètres');
-                    setIsSettingsOpen(true);
-                    return;
-                }
-
-                setIsLoading(true);
-                setLoadingMessage(`Génération de la fiche "${diseaseInfo.name}"...`);
-
-                const prompt = `Tu es un assistant médical expert pour professionnels de santé. Génère une fiche médicale COMPLÈTE et DÉTAILLÉE pour: ${diseaseInfo.name}
-
-RÉPONDS UNIQUEMENT avec un objet JSON valide (pas de texte avant/après, pas de markdown). Structure exacte:
-
-{
-    "definition": "Définition précise et complète",
-    "epidemiologie": {
-        "prevalence": "X% (données occidentales, source)",
-        "incidence": "X/100 000/an",
-        "frequence": "Rang de fréquence",
-        "details": "Sex-ratio, pic d'âge, variations géographiques, évolution temporelle"
-    },
-    "physiopathologie": {
-        "resume": "Résumé en 3-4 phrases des mécanismes clés",
-        "mecanismes": [
-            "Mécanisme 1 détaillé avec voies moléculaires/cellulaires",
-            "Mécanisme 2 détaillé",
-            "Mécanisme 3 détaillé",
-            "Mécanisme 4 si pertinent"
-        ],
-        "cascade": "Description complète de la cascade physiopathologique, du facteur déclenchant aux conséquences cliniques"
-    },
-    "symptomes": {
-        "principaux": ["Symptôme 1 avec caractéristiques sémiologiques", "Symptôme 2", "Symptôme 3"],
-        "secondaires": ["Symptôme secondaire 1", "Symptôme secondaire 2"],
-        "signes_cliniques": ["Signe clinique 1 avec technique d'examen", "Signe 2", "Signe 3"]
-    },
-    "facteurs_risque": ["FR modifiable 1", "FR modifiable 2", "FR non modifiable 1", "FR non modifiable 2"],
-    "diagnostic": {
-        "clinique": "Éléments cliniques clés et leur valeur diagnostique",
-        "paraclinique": ["Examen 1 + ce qu'on recherche", "Examen 2 + résultats attendus"],
-        "criteres": "Critères diagnostiques officiels (DSM, ACR, ESC, etc.) si existants",
-        "differentiel": ["Diagnostic différentiel 1", "Diagnostic différentiel 2"]
-    },
-    "traitement": {
-        "premiere_ligne": "Traitement de 1ère intention avec DCI, posologies, durée",
-        "alternatives": ["Alternative 1 avec indication", "Alternative 2"],
-        "non_medicamenteux": ["RHD 1", "RHD 2"],
-        "surveillance": "Paramètres de surveillance, fréquence, objectifs thérapeutiques",
-        "urgence": "CAT en urgence si applicable"
-    },
-    "mnemonique": {
-        "acronyme": "ACRONYME mémorable OU phrase mnémotechnique",
-        "explication": "Explication lettre par lettre ou mot par mot",
-        "astuce": "Astuce clinique supplémentaire pour retenir les points clés"
-    },
-    "sources": ["Recommandation officielle 1 (année)", "Source 2 (année)", "Source 3"],
-    "derniere_maj": "${new Date().toISOString().split('T')[0]}"
-}
-
-Utilise les dernières recommandations 2024-2025. Données épidémiologiques pour Europe/Amérique du Nord. Sois exhaustif et précis.`;
-
-                try {
-                    const content = await callAPI(prompt);
-                    
-                    // Parse JSON
-                    const jsonMatch = content.match(/\{[\s\S]*\}/);
-                    if (jsonMatch) {
-                        const diseaseData = JSON.parse(jsonMatch[0]);
-                        setDiseases(prev => ({
-                            ...prev,
-                            [diseaseInfo.id]: {
-                                ...diseaseInfo,
-                                ...diseaseData,
-                                generated: true
-                            }
-                        }));
-                        showToast(`✅ Fiche "${diseaseInfo.name}" générée`);
-                    } else {
-                        throw new Error('Format de réponse invalide');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    showToast(`❌ Erreur: ${error.message}`);
-                } finally {
-                    setIsLoading(false);
-                    setLoadingMessage('');
-                }
-            };
-
-            // Sync to Gist
-            const syncToGist = async () => {
-                if (!gistToken) {
-                    showToast('⚠️ Configurez votre token GitHub dans les paramètres');
-                    return;
-                }
-
-                setIsLoading(true);
-                setLoadingMessage('Synchronisation en cours...');
-
-                try {
-                    const content = JSON.stringify(diseases, null, 2);
-                    
-                    if (gistId) {
-                        // Update existing gist
-                        await fetch(`https://api.github.com/gists/${gistId}`, {
-                            method: 'PATCH',
-                            headers: {
-                                'Authorization': `token ${gistToken}`,
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                files: {
-                                    'medref-data.json': { content }
-                                }
-                            })
-                        });
-                    } else {
-                        // Create new gist
-                        const response = await fetch('https://api.github.com/gists', {
-                            method: 'POST',
-                            headers: {
-                                'Authorization': `token ${gistToken}`,
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                description: 'MedRef Pro - Fiches médicales',
-                                public: false,
-                                files: {
-                                    'medref-data.json': { content }
-                                }
-                            })
-                        });
-                        const data = await response.json();
-                        setGistId(data.id);
-                        localStorage.setItem('medref_gist_id', data.id);
-                    }
-                    
-                    showToast('✅ Synchronisé avec GitHub');
-                } catch (error) {
-                    showToast(`❌ Erreur sync: ${error.message}`);
-                } finally {
-                    setIsLoading(false);
-                    setLoadingMessage('');
-                }
-            };
-
-            // Load from Gist
-            const loadFromGist = async () => {
-                if (!gistToken || !gistId) {
-                    showToast('⚠️ Configurez GitHub dans les paramètres');
-                    return;
-                }
-
-                setIsLoading(true);
-                setLoadingMessage('Chargement depuis GitHub...');
-
-                try {
-                    const response = await fetch(`https://api.github.com/gists/${gistId}`, {
-                        headers: {
-                            'Authorization': `token ${gistToken}`
-                        }
-                    });
-                    const data = await response.json();
-                    const content = data.files['medref-data.json'].content;
-                    const loadedDiseases = JSON.parse(content);
-                    setDiseases(loadedDiseases);
-                    showToast(`✅ ${Object.keys(loadedDiseases).length} fiches chargées`);
-                } catch (error) {
-                    showToast(`❌ Erreur: ${error.message}`);
-                } finally {
-                    setIsLoading(false);
-                    setLoadingMessage('');
-                }
-            };
-
-            // Filter diseases
-            const filteredDiseases = useMemo(() => {
-                return DISEASES_LIST.filter(d => {
-                    const matchesSearch = d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                        d.category.toLowerCase().includes(searchQuery.toLowerCase());
-                    const matchesCategory = selectedCategory === 'Tous' || d.category === selectedCategory;
-                    return matchesSearch && matchesCategory;
-                });
-            }, [searchQuery, selectedCategory]);
-
-            // Stats
-            const generatedCount = Object.keys(diseases).filter(k => diseases[k]?.generated).length;
-            const totalCount = DISEASES_LIST.length;
-            const categoriesCount = CATEGORIES.length - 1;
-
-            return (
-                <div className="app">
-                    {/* Progress Bar */}
-                    <div className={`progress-bar ${isLoading ? 'active' : ''}`}>
-                        <div className="progress-bar-inner"></div>
-                    </div>
-
-                    {/* Header */}
-                    <header className="header">
-                        <div className="container">
-                            <div className="header-inner">
-                                <div className="logo">
-                                    <div className="logo-mark">{Icons.pulse}</div>
-                                    <div className="logo-text">
-                                        <div className="logo-title">MedRef Pro</div>
-                                        <div className="logo-subtitle">Fiches médicales IA</div>
-                                    </div>
-                                </div>
-                                <div className="header-actions">
-                                    {gistToken && (
-                                        <button className="btn-icon" onClick={syncToGist} title="Synchroniser">
-                                            {Icons.sync}
-                                        </button>
-                                    )}
-                                    <button className="btn-icon" onClick={() => setIsSettingsOpen(true)} title="Paramètres">
-                                        {Icons.settings}
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-
-                    {/* Hero */}
-                    <section className="hero">
-                        <div className="container">
-                            <div className="hero-content">
-                                <h1 className="hero-title">
-                                    Vos fiches médicales<br/><span>actualisées par IA</span>
-                                </h1>
-                                <p className="hero-description">
-                                    {totalCount} pathologies couvrant 90% des cas en médecine occidentale. 
-                                    Générées et mises à jour automatiquement via Groq (gratuit).
-                                </p>
-                                <div className="search-wrapper">
-                                    <div className="search-bar">
-                                        <span className="search-icon">{Icons.search}</span>
-                                        <input
-                                            type="text"
-                                            className="search-input"
-                                            placeholder="Rechercher une pathologie..."
-                                            value={searchQuery}
-                                            onChange={(e) => setSearchQuery(e.target.value)}
-                                        />
-                                        <span className="search-kbd">⌘K</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Stats */}
-                    <section className="stats-section">
-                        <div className="container">
-                            <div className="stats-grid">
-                                <div className="stat-card">
-                                    <div className="stat-icon blue">{Icons.file}</div>
-                                    <div className="stat-value">{generatedCount}</div>
-                                    <div className="stat-label">Fiches générées</div>
-                                </div>
-                                <div className="stat-card">
-                                    <div className="stat-icon purple">{Icons.database}</div>
-                                    <div className="stat-value">{totalCount}</div>
-                                    <div className="stat-label">Pathologies</div>
-                                </div>
-                                <div className="stat-card">
-                                    <div className="stat-icon green">{Icons.folder}</div>
-                                    <div className="stat-value">{categoriesCount}</div>
-                                    <div className="stat-label">Spécialités</div>
-                                </div>
-                                <div className="stat-card">
-                                    <div className="stat-icon orange">{Icons.sparkles}</div>
-                                    <div className="stat-value">2025</div>
-                                    <div className="stat-label">Données à jour</div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Categories */}
-                    <section className="categories-section">
-                        <div className="container">
-                            <div className="categories-scroll">
-                                {CATEGORIES.map(cat => (
-                                    <button
-                                        key={cat}
-                                        className={`category-chip ${selectedCategory === cat ? 'active' : ''}`}
-                                        onClick={() => setSelectedCategory(cat)}
-                                    >
-                                        {cat}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Diseases Grid */}
-                    <section className="diseases-section">
-                        <div className="container">
-                            <div className="section-header">
-                                <h2 className="section-title">Pathologies</h2>
-                                <span className="section-count">{filteredDiseases.length} résultats</span>
-                            </div>
-                            <div className="diseases-grid">
-                                {filteredDiseases.map(disease => {
-                                    const hasData = diseases[disease.id]?.generated;
-                                    return (
-                                        <div
-                                            key={disease.id}
-                                            className="disease-card"
-                                            onClick={() => {
-                                                if (hasData) {
-                                                    setSelectedDisease(disease.id);
-                                                } else {
-                                                    generateDiseaseCard(disease);
-                                                }
-                                            }}
-                                        >
-                                            <div className="disease-card-content">
-                                                <div className="disease-header">
-                                                    <h3 className="disease-name">{disease.name}</h3>
-                                                    <span className="disease-badge">{disease.category}</span>
-                                                </div>
-                                                <p className="disease-preview">
-                                                    {hasData 
-                                                        ? diseases[disease.id].definition?.substring(0, 120) + '...'
-                                                        : 'Cliquez pour générer la fiche médicale complète avec physiopathologie, traitement et mnémotechniques.'
-                                                    }
-                                                </p>
-                                                <div className="disease-footer">
-                                                    {hasData && (
-                                                        <div className="disease-meta">
-                                                            {Icons.clock}
-                                                            <span>{diseases[disease.id].derniere_maj}</span>
-                                                        </div>
-                                                    )}
-                                                    <div className={`disease-status ${hasData ? 'generated' : 'pending'}`}>
-                                                        <span className="status-dot"></span>
-                                                        {hasData ? 'Générée' : 'À générer'}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Detail Panel */}
-                    <div 
-                        className={`detail-overlay ${selectedDisease ? 'open' : ''}`}
-                        onClick={() => setSelectedDisease(null)}
-                    />
-                    <DiseaseDetail
-                        disease={selectedDisease ? diseases[selectedDisease] : null}
-                        diseaseInfo={DISEASES_LIST.find(d => d.id === selectedDisease)}
-                        isOpen={!!selectedDisease}
-                        onClose={() => setSelectedDisease(null)}
-                        onGenerate={() => {
-                            const info = DISEASES_LIST.find(d => d.id === selectedDisease);
-                            if (info) generateDiseaseCard(info);
-                        }}
-                        isLoading={isLoading}
-                    />
-
-                    {/* Settings Modal */}
-                    <div 
-                        className={`settings-overlay ${isSettingsOpen ? 'open' : ''}`}
-                        onClick={() => setIsSettingsOpen(false)}
-                    />
-                    <div className={`settings-modal ${isSettingsOpen ? 'open' : ''}`}>
-                        <div className="settings-header">
-                            <div className="settings-handle"></div>
-                            <h2 className="settings-title">Paramètres</h2>
-                            <button className="btn-close" onClick={() => setIsSettingsOpen(false)}>
-                                {Icons.x}
-                            </button>
-                        </div>
-                        <div className="settings-body">
-                            <div className="setting-group">
-                                <h3 className="setting-group-title">API Groq (gratuit)</h3>
-                                <div className="setting-item">
-                                    <div className="setting-item-header">
-                                        <span className="setting-label">Clé API</span>
-                                        {apiKey && <span className="status-badge success">{Icons.check} Configurée</span>}
-                                    </div>
-                                    <p className="setting-desc">
-                                        Gratuit ! Obtenez votre clé sur console.groq.com
-                                    </p>
-                                    <input
-                                        type="password"
-                                        className="input-field"
-                                        placeholder="gsk_..."
-                                        value={apiKey}
-                                        onChange={(e) => setApiKey(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="setting-group">
-                                <h3 className="setting-group-title">Synchronisation GitHub</h3>
-                                <div className="setting-item">
-                                    <div className="setting-item-header">
-                                        <span className="setting-label">Token GitHub</span>
-                                        {gistToken && <span className="status-badge success">{Icons.check} Configuré</span>}
-                                    </div>
-                                    <p className="setting-desc">
-                                        Pour sauvegarder vos fiches entre appareils. Créez un token sur github.com/settings/tokens avec le scope "gist".
-                                    </p>
-                                    <input
-                                        type="password"
-                                        className="input-field"
-                                        placeholder="ghp_..."
-                                        value={gistToken}
-                                        onChange={(e) => setGistToken(e.target.value)}
-                                    />
-                                </div>
-                                <div className="setting-item">
-                                    <div className="setting-item-header">
-                                        <span className="setting-label">Gist ID</span>
-                                    </div>
-                                    <p className="setting-desc">
-                                        Laissez vide pour créer un nouveau Gist, ou entrez l'ID d'un Gist existant.
-                                    </p>
-                                    <input
-                                        type="text"
-                                        className="input-field"
-                                        placeholder="(auto-généré)"
-                                        value={gistId}
-                                        onChange={(e) => setGistId(e.target.value)}
-                                    />
-                                </div>
-                                {gistToken && gistId && (
-                                    <button 
-                                        className="btn-primary" 
-                                        style={{marginTop: '12px'}}
-                                        onClick={loadFromGist}
-                                    >
-                                        Charger depuis GitHub
-                                    </button>
-                                )}
-                            </div>
-
-                            <div className="setting-group">
-                                <h3 className="setting-group-title">Données</h3>
-                                <div className="setting-item">
-                                    <span className="setting-label">{generatedCount} fiches générées</span>
-                                    <p className="setting-desc">
-                                        sur {totalCount} pathologies disponibles
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="settings-footer">
-                            <button 
-                                className="btn-primary"
-                                onClick={() => {
-                                    setIsSettingsOpen(false);
-                                    showToast('✅ Paramètres enregistrés');
-                                }}
-                            >
-                                Enregistrer
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Loading Overlay */}
-                    <div className={`loading-overlay ${isLoading ? 'active' : ''}`}>
-                        <div className="loading-spinner"></div>
-                        <div className="loading-text">{loadingMessage || 'Chargement...'}</div>
-                        <div className="loading-subtext">Groq génère la fiche médicale</div>
-                    </div>
-
-                    {/* Toast */}
-                    <div className={`toast ${toast ? 'show' : ''}`}>{toast}</div>
-                </div>
-            );
+        if (filteredImages.length === 0) {
+            grid.innerHTML = `<div class="empty-state">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <p>Aucune image trouvée</p>
+            </div>`;
+            return;
         }
 
-        // ============================================
-        // DISEASE DETAIL COMPONENT
-        // ============================================
-        function DiseaseDetail({ disease, diseaseInfo, isOpen, onClose, onGenerate, isLoading }) {
-            if (!diseaseInfo) return null;
+        const isPptx = (name) => name.endsWith('.pptx') || name.endsWith('.zip');
+        grid.innerHTML = filteredImages.map((img, i) => {
+            const isFav = favorites.includes(img.id);
+            const status = urlStatus[img.id] || '';
+            const selClass = selectedIds.has(img.id) ? 'selected' : '';
+            const selectable = selectMode ? 'selectable' : '';
+            const delay = Math.min(i * 30, 600);
 
-            return (
-                <div className={`detail-panel ${isOpen ? 'open' : ''}`}>
-                    <div className="detail-header">
-                        <div className="detail-nav">
-                            <button className="btn-back" onClick={onClose}>
-                                {Icons.chevronLeft}
-                                Retour
-                            </button>
-                            {disease?.generated && (
-                                <button className="btn-refresh" onClick={onGenerate} disabled={isLoading}>
-                                    {Icons.refresh}
-                                    Actualiser
-                                </button>
-                            )}
-                        </div>
-                        <h1 className="detail-title">{diseaseInfo.name}</h1>
-                        <span className="detail-badge">{diseaseInfo.category}</span>
+            return `<div class="img-card ${selClass} ${selectable}" style="animation-delay:${delay}ms" data-id="${img.id}">
+                <div class="select-check">✓</div>
+                ${status ? `<div class="status-dot ${status}"></div>` : ''}
+                <button class="fav-btn ${isFav ? 'faved' : ''}" onclick="event.stopPropagation();toggleFav('${img.id}')" title="Favori">
+                    ${isFav ? '★' : '☆'}
+                </button>
+                <div class="thumb-wrap" onclick="${selectMode ? `toggleSelect('${img.id}')` : `openModal('${img.id}')`}">
+                    ${isPptx(img.name) 
+                        ? `<div class="thumb-placeholder">📦 ${img.format.toUpperCase()}<br><small>${img.name}</small></div>` 
+                        : `<img src="${img.url}" alt="${img.desc}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=thumb-placeholder>⚠️ Image indisponible</div>'">`
+                    }
+                </div>
+                <div class="card-body">
+                    <div class="card-title">${img.desc}</div>
+                    <div class="card-desc">${img.categoryIcon} ${img.categoryLabel} · ${img.format.toUpperCase()}</div>
+                    <div class="card-tags">
+                        ${img.tags.slice(0,3).map(t => `<span class="tag">${t}</span>`).join('')}
+                        ${img.pathologies.length ? img.pathologies.slice(0,2).map(p => `<span class="pathology-badge">${p}</span>`).join('') : ''}
                     </div>
-
-                    <div className="detail-content">
-                        {disease?.generated ? (
-                            <>
-                                {/* Update Info */}
-                                <div className="update-info">
-                                    <span className="dot"></span>
-                                    Dernière mise à jour: {disease.derniere_maj}
-                                </div>
-
-                                {/* Definition */}
-                                <div className="info-card blue">
-                                    <div className="info-card-header">
-                                        <div className="info-card-icon blue">{Icons.info}</div>
-                                        <span className="info-card-title">Définition</span>
-                                    </div>
-                                    <div className="info-card-body">
-                                        {disease.definition}
-                                    </div>
-                                </div>
-
-                                {/* Epidemiology */}
-                                <div className="info-card green">
-                                    <div className="info-card-header">
-                                        <div className="info-card-icon green">{Icons.chart}</div>
-                                        <span className="info-card-title">Épidémiologie</span>
-                                    </div>
-                                    <div className="epi-grid">
-                                        <div className="epi-item">
-                                            <div className="epi-value">{disease.epidemiologie?.prevalence?.split(' ')[0]}</div>
-                                            <div className="epi-label">Prévalence</div>
-                                        </div>
-                                        <div className="epi-item">
-                                            <div className="epi-value">{disease.epidemiologie?.incidence?.split('/')[0]}</div>
-                                            <div className="epi-label">Incidence</div>
-                                        </div>
-                                        <div className="epi-item">
-                                            <div className="epi-value">{disease.epidemiologie?.frequence?.split(' ')[0]}</div>
-                                            <div className="epi-label">Fréquence</div>
-                                        </div>
-                                    </div>
-                                    <div className="info-card-body">
-                                        {disease.epidemiologie?.details}
-                                    </div>
-                                </div>
-
-                                {/* Physiopathology */}
-                                <div className="info-card purple">
-                                    <div className="info-card-header">
-                                        <div className="info-card-icon purple">{Icons.brain}</div>
-                                        <span className="info-card-title">Physiopathologie</span>
-                                    </div>
-                                    <div className="info-card-body">
-                                        <p><strong>{disease.physiopathologie?.resume}</strong></p>
-                                        <ul>
-                                            {disease.physiopathologie?.mecanismes?.map((m, i) => (
-                                                <li key={i}>{m}</li>
-                                            ))}
-                                        </ul>
-                                        <div className="highlight-box">
-                                            <strong>Cascade physiopathologique:</strong><br/>
-                                            {disease.physiopathologie?.cascade}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Symptoms */}
-                                <div className="info-card orange">
-                                    <div className="info-card-header">
-                                        <div className="info-card-icon orange">{Icons.activity}</div>
-                                        <span className="info-card-title">Symptômes & Signes</span>
-                                    </div>
-                                    <div className="info-card-body">
-                                        <p><strong>Principaux:</strong></p>
-                                        <ul>
-                                            {disease.symptomes?.principaux?.map((s, i) => (
-                                                <li key={i}>{s}</li>
-                                            ))}
-                                        </ul>
-                                        <p><strong>Secondaires:</strong></p>
-                                        <ul>
-                                            {disease.symptomes?.secondaires?.map((s, i) => (
-                                                <li key={i}>{s}</li>
-                                            ))}
-                                        </ul>
-                                        <p><strong>Signes cliniques:</strong></p>
-                                        <ul>
-                                            {disease.symptomes?.signes_cliniques?.map((s, i) => (
-                                                <li key={i}>{s}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                {/* Risk Factors */}
-                                <div className="info-card orange">
-                                    <div className="info-card-header">
-                                        <div className="info-card-icon orange">{Icons.warning}</div>
-                                        <span className="info-card-title">Facteurs de risque</span>
-                                    </div>
-                                    <div className="info-card-body">
-                                        <ul>
-                                            {disease.facteurs_risque?.map((f, i) => (
-                                                <li key={i}>{f}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                {/* Diagnosis */}
-                                <div className="info-card blue">
-                                    <div className="info-card-header">
-                                        <div className="info-card-icon blue">{Icons.file}</div>
-                                        <span className="info-card-title">Diagnostic</span>
-                                    </div>
-                                    <div className="info-card-body">
-                                        <p><strong>Clinique:</strong> {disease.diagnostic?.clinique}</p>
-                                        <p><strong>Paraclinique:</strong></p>
-                                        <ul>
-                                            {disease.diagnostic?.paraclinique?.map((e, i) => (
-                                                <li key={i}>{e}</li>
-                                            ))}
-                                        </ul>
-                                        {disease.diagnostic?.criteres && (
-                                            <div className="highlight-box">
-                                                <strong>Critères diagnostiques:</strong><br/>
-                                                {disease.diagnostic.criteres}
-                                            </div>
-                                        )}
-                                        {disease.diagnostic?.differentiel && (
-                                            <>
-                                                <p><strong>Diagnostics différentiels:</strong></p>
-                                                <ul>
-                                                    {disease.diagnostic.differentiel.map((d, i) => (
-                                                        <li key={i}>{d}</li>
-                                                    ))}
-                                                </ul>
-                                            </>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* Treatment */}
-                                <div className="info-card green">
-                                    <div className="info-card-header">
-                                        <div className="info-card-icon green">{Icons.pill}</div>
-                                        <span className="info-card-title">Traitement</span>
-                                    </div>
-                                    <div className="info-card-body">
-                                        <p><strong>1ère ligne:</strong> {disease.traitement?.premiere_ligne}</p>
-                                        <p><strong>Alternatives:</strong></p>
-                                        <ul>
-                                            {disease.traitement?.alternatives?.map((a, i) => (
-                                                <li key={i}>{a}</li>
-                                            ))}
-                                        </ul>
-                                        <p><strong>Non médicamenteux:</strong></p>
-                                        <ul>
-                                            {disease.traitement?.non_medicamenteux?.map((m, i) => (
-                                                <li key={i}>{m}</li>
-                                            ))}
-                                        </ul>
-                                        <div className="highlight-box">
-                                            <strong>Surveillance:</strong><br/>
-                                            {disease.traitement?.surveillance}
-                                        </div>
-                                        {disease.traitement?.urgence && (
-                                            <div className="highlight-box" style={{borderLeft: '3px solid var(--accent-warm)'}}>
-                                                <strong>⚠️ Urgence:</strong><br/>
-                                                {disease.traitement.urgence}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* Mnemonic */}
-                                <div className="info-card rose">
-                                    <div className="info-card-header">
-                                        <div className="info-card-icon rose">{Icons.star}</div>
-                                        <span className="info-card-title">Mnémotechnique</span>
-                                    </div>
-                                    <div className="mnemonic-box">
-                                        <div className="mnemonic-label">
-                                            {Icons.sparkles} À retenir
-                                        </div>
-                                        <div className="mnemonic-text">
-                                            {disease.mnemonique?.acronyme}
-                                        </div>
-                                        <div className="mnemonic-explanation">
-                                            {disease.mnemonique?.explication}
-                                        </div>
-                                        {disease.mnemonique?.astuce && (
-                                            <div className="mnemonic-explanation" style={{marginTop: '12px', fontStyle: 'italic'}}>
-                                                💡 {disease.mnemonique.astuce}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* Sources */}
-                                <div className="sources-list">
-                                    <div className="sources-title">Sources & Références</div>
-                                    {disease.sources?.map((s, i) => (
-                                        <div key={i} className="source-item">{s}</div>
-                                    ))}
-                                </div>
-                            </>
-                        ) : (
-                            <div className="empty-state">
-                                <div className="empty-state-icon">{Icons.file}</div>
-                                <h3 className="empty-state-title">Fiche non générée</h3>
-                                <p className="empty-state-desc">
-                                    Générez cette fiche pour accéder à la définition, physiopathologie, traitement et mnémotechniques.
-                                </p>
-                                <button 
-                                    className="btn-generate"
-                                    onClick={onGenerate}
-                                    disabled={isLoading}
-                                >
-                                    {Icons.sparkles}
-                                    {isLoading ? 'Génération...' : 'Générer la fiche'}
-                                </button>
-                            </div>
-                        )}
+                    <div class="card-actions">
+                        <button class="btn btn-sm" onclick="event.stopPropagation();copyUrl('${img.id}')">📋 URL</button>
+                        <button class="btn btn-sm" onclick="event.stopPropagation();window.open('${img.url}','_blank')">↗ Ouvrir</button>
                     </div>
                 </div>
-            );
+            </div>`;
+        }).join('');
+    }
+
+    // ============================================================
+    // VIEW MODE
+    // ============================================================
+    function setView(mode) {
+        viewMode = mode;
+        document.getElementById('imageGrid').classList.toggle('list-view', mode === 'list');
+        document.getElementById('gridViewBtn').classList.toggle('active', mode === 'grid');
+        document.getElementById('listViewBtn').classList.toggle('active', mode === 'list');
+    }
+
+    // ============================================================
+    // FAVORITES
+    // ============================================================
+    function toggleFav(id) {
+        const idx = favorites.indexOf(id);
+        if (idx >= 0) favorites.splice(idx, 1);
+        else favorites.push(id);
+        localStorage.setItem('medref_favs', JSON.stringify(favorites));
+        applyFilters();
+    }
+
+    // ============================================================
+    // SELECTION MODE
+    // ============================================================
+    function toggleSelectMode() {
+        selectMode = !selectMode;
+        document.getElementById('selectModeBtn').classList.toggle('btn-accent', selectMode);
+        if (!selectMode) clearSelection();
+        applyFilters();
+    }
+
+    function toggleSelect(id) {
+        if (selectedIds.has(id)) selectedIds.delete(id);
+        else selectedIds.add(id);
+        updateSelectionBar();
+        applyFilters();
+    }
+
+    function clearSelection() {
+        selectedIds.clear();
+        updateSelectionBar();
+        applyFilters();
+    }
+
+    function updateSelectionBar() {
+        const bar = document.getElementById('selectionBar');
+        bar.classList.toggle('show', selectedIds.size > 0);
+        document.getElementById('selCount').textContent = selectedIds.size;
+    }
+
+    function exportSelected() {
+        const sel = allImages.filter(img => selectedIds.has(img.id));
+        const json = JSON.stringify(sel, null, 2);
+        document.getElementById('exportArea').value = json;
+        document.getElementById('exportPanel').classList.add('open');
+        showToast(`${sel.length} images exportées`);
+    }
+
+    // ============================================================
+    // MODAL
+    // ============================================================
+    function openModal(id) {
+        const img = allImages.find(i => i.id === id);
+        if (!img) return;
+
+        document.getElementById('modalTitle').textContent = img.desc;
+        const modalImg = document.getElementById('modalImg');
+        if (img.name.endsWith('.pptx') || img.name.endsWith('.zip')) {
+            modalImg.style.display = 'none';
+            document.querySelector('.modal-img-wrap').innerHTML = `<div style="text-align:center;color:var(--text-muted);padding:40px;"><div style="font-size:3rem;">📦</div><p>${img.name}</p><p style="font-size:0.8rem;margin-top:8px;">Fichier téléchargeable</p></div>`;
+        } else {
+            modalImg.style.display = '';
+            modalImg.src = img.url;
+            document.querySelector('.modal-img-wrap').innerHTML = '';
+            document.querySelector('.modal-img-wrap').appendChild(modalImg);
         }
 
-        // Render App
-        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+        const meta = document.getElementById('modalMeta');
+        meta.innerHTML = `
+            <span class="label">Fichier</span><span class="value">${img.name}</span>
+            <span class="label">Format</span><span class="value">${img.format.toUpperCase()}</span>
+            <span class="label">Spécialité</span><span class="value">${img.categoryIcon} ${img.categoryLabel}</span>
+            <span class="label">Licence</span><span class="value">${img.license}</span>
+            <span class="label">Tags</span><span class="value">${img.tags.join(', ')}</span>
+            ${img.pathologies.length ? `<span class="label">Pathologies</span><span class="value">${img.pathologies.join(', ')}</span>` : ''}
+            <span class="label">URL</span><span class="value"><a href="${img.url}" target="_blank">${img.url.substring(0, 80)}…</a></span>
+        `;
+
+        document.getElementById('modalActions').innerHTML = `
+            <button class="btn" onclick="navigator.clipboard.writeText('${img.url}');showToast('URL copiée')">📋 Copier URL</button>
+            <button class="btn" onclick="window.open('${img.url}','_blank')">↗ Ouvrir en grand</button>
+            <button class="btn" onclick="downloadImage('${img.url}','${img.name}')">⬇ Télécharger</button>
+        `;
+
+        document.getElementById('modalOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(e) {
+        if (e && e.target !== e.currentTarget) return;
+        document.getElementById('modalOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // ============================================================
+    // URL CHECKER
+    // ============================================================
+    function toggleChecker() {
+        document.getElementById('checkerPanel').classList.toggle('open');
+    }
+
+    async function runUrlCheck() {
+        const total = allImages.length;
+        let checked = 0, ok = 0, fail = 0;
+        urlStatus = {};
+
+        document.getElementById('checkTotal').textContent = '0';
+        document.getElementById('checkOk').textContent = '0';
+        document.getElementById('checkFail').textContent = '0';
+
+        for (const img of allImages) {
+            urlStatus[img.id] = 'checking';
+            applyFilters();
+            try {
+                const resp = await fetch(img.url, { method: 'HEAD', mode: 'no-cors' });
+                urlStatus[img.id] = 'ok';
+                ok++;
+            } catch {
+                urlStatus[img.id] = 'broken';
+                fail++;
+            }
+            checked++;
+            document.getElementById('checkerBar').style.width = `${(checked/total)*100}%`;
+            document.getElementById('checkTotal').textContent = checked;
+            document.getElementById('checkOk').textContent = ok;
+            document.getElementById('checkFail').textContent = fail;
+        }
+        applyFilters();
+        showToast(`Vérification terminée: ${ok} OK, ${fail} cassées`);
+    }
+
+    // ============================================================
+    // EXPORT
+    // ============================================================
+    function toggleExport() {
+        document.getElementById('exportPanel').classList.toggle('open');
+    }
+
+    function exportData() {
+        const data = selectedIds.size > 0 
+            ? allImages.filter(img => selectedIds.has(img.id))
+            : filteredImages;
+        document.getElementById('exportArea').value = JSON.stringify(data, null, 2);
+        document.getElementById('exportPanel').classList.add('open');
+    }
+
+    function copyExport() {
+        navigator.clipboard.writeText(document.getElementById('exportArea').value);
+        showToast('JSON copié dans le presse-papier');
+    }
+
+    function downloadExport() {
+        const blob = new Blob([document.getElementById('exportArea').value], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'medref-images-export.json';
+        a.click();
+    }
+
+    // ============================================================
+    // UTILS
+    // ============================================================
+    function copyUrl(id) {
+        const img = allImages.find(i => i.id === id);
+        if (img) {
+            navigator.clipboard.writeText(img.url);
+            showToast('URL copiée');
+        }
+    }
+
+    function downloadImage(url, name) {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name;
+        a.target = '_blank';
+        a.click();
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    // Init
+    init();
     </script>
 </body>
 </html>
