@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MedRef Pro">
+<meta name="theme-color" content="#0b0f1a">
+<title>MedRef Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep:#0b0f1a;--bg-card:#121829;--bg-card2:#1a2236;--bg-hover:#1e2a42;
+  --text:#e8edf5;--text2:#8b9cc0;--text3:#4a5a7a;
+  --accent:#38bdf8;--accent2:#818cf8;--accent-glow:rgba(56,189,248,.15);
+  --success:#34d399;--warning:#fbbf24;--danger:#f87171;
+  --border:#1e293b;--radius:14px;--radius-sm:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg-deep);color:var(--text);min-height:100dvh;overflow-x:hidden;line-height:1.55}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--text3);border-radius:3px}
+h1,h2,h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400}
+a{color:var(--accent);text-decoration:none}
+
+/* App Shell */
+.app{max-width:900px;margin:0 auto;padding:0 16px 100px}
+.header{padding:20px 0 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.logo{font-family:'Instrument Serif',serif;font-size:28px;color:var(--accent);letter-spacing:-.5px}
+.logo span{color:var(--text2);font-family:'DM Sans',sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:2px;margin-left:8px}
+
+/* Bottom Nav */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(11,15,26,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:center;gap:0;z-index:100;padding:0 0 env(safe-area-inset-bottom)}
+.nav-btn{flex:1;max-width:120px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 8px;background:none;border:none;color:var(--text3);font-size:10px;font-family:inherit;cursor:pointer;transition:.2s}
+.nav-btn.active{color:var(--accent)}
+.nav-btn .icon{font-size:22px}
+.nav-btn.active .icon{filter:drop-shadow(0 0 6px var(--accent))}
+
+/* Search */
+.search-wrap{position:relative;margin:12px 0}
+.search-wrap input{width:100%;padding:12px 16px 12px 44px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:15px;font-family:inherit;outline:none;transition:.2s}
+.search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.search-wrap input::placeholder{color:var(--text3)}
+.search-wrap .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:18px}
+
+/* Category chips */
+.chips{display:flex;gap:8px;overflow-x:auto;padding:8px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;padding:7px 14px;border-radius:20px;background:var(--bg-card);border:1px solid var(--border);color:var(--text2);font-size:13px;cursor:pointer;transition:.2s;flex-shrink:0}
+.chip:hover,.chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chip .count{opacity:.6;margin-left:4px;font-size:11px}
+
+/* Cards Grid */
+.cards{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+@media(min-width:540px){.cards{grid-template-columns:repeat(2,1fr)}}
+
+/* Pathology Card */
+.patho-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
+.patho-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.patho-card .cat-icon{font-size:24px;margin-bottom:6px}
+.patho-card h3{font-size:17px;margin-bottom:4px;color:var(--text)}
+.patho-card .cat-label{font-size:12px;color:var(--text2)}
+.patho-card .status{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%}
+.patho-card .status.generated{background:var(--success)}
+.patho-card .status.pending{background:var(--text3)}
+.patho-card .status.outdated{background:var(--warning)}
+.patho-card .tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.patho-card .tag{font-size:10px;padding:2px 8px;border-radius:10px;background:var(--bg-card2);color:var(--text2)}
+
+/* Fiche View */
+.fiche-header{padding:16px 0;display:flex;align-items:center;gap:12px}
+.fiche-header .back{background:none;border:none;color:var(--accent);font-size:24px;cursor:pointer;padding:8px}
+.fiche-title{font-size:26px;line-height:1.2}
+.fiche-meta{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 16px;font-size:12px;color:var(--text2)}
+.fiche-meta .badge{padding:3px 10px;border-radius:12px;font-size:11px}
+.fiche-meta .badge.cat{background:var(--accent);color:#fff}
+.fiche-meta .badge.date{background:var(--bg-card2);color:var(--text2)}
+.fiche-meta .badge.outdated{background:var(--warning);color:#000}
+
+.fiche-section{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.fiche-section-header{padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.fiche-section-header .section-icon{font-size:18px}
+.fiche-section-header h3{font-size:16px;flex:1}
+.fiche-section-header .chevron{color:var(--text3);transition:.3s;font-size:14px}
+.fiche-section-header .chevron.open{transform:rotate(180deg)}
+.fiche-section-body{padding:0 16px 14px;font-size:14px;color:var(--text2);line-height:1.7}
+.fiche-section-body p{margin-bottom:8px}
+.fiche-section-body ul{margin:4px 0 8px 20px}
+.fiche-section-body li{margin-bottom:4px}
+.fiche-section-body strong{color:var(--text)}
+.fiche-section-body .highlight{background:var(--accent-glow);padding:2px 6px;border-radius:4px;color:var(--accent)}
+.fiche-section-body .mnemonic{background:rgba(251,191,36,.1);border-left:3px solid var(--warning);padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-style:italic}
+
+/* Fiche Images */
+.fiche-images{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:8px}
+.fiche-img{border-radius:var(--radius-sm);overflow:hidden;aspect-ratio:1;background:var(--bg-card2);cursor:pointer;position:relative}
+.fiche-img img{width:100%;height:100%;object-fit:contain;padding:8px}
+.fiche-img .img-label{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);padding:4px 6px;font-size:10px;color:var(--text2)}
+
+/* Generate/Update buttons */
+.btn{padding:10px 20px;border-radius:var(--radius-sm);border:none;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#2da3e0}
+.btn-secondary{background:var(--bg-card2);color:var(--text2);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.btn-warning{background:var(--warning);color:#000}
+.btn-sm{padding:6px 14px;font-size:12px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+.generate-bar{display:flex;gap:10px;align-items:center;margin:16px 0;flex-wrap:wrap}
+.generate-bar .info{font-size:12px;color:var(--text3)}
+
+/* Loading */
+.spinner{display:inline-block;width:18px;height:18px;border:2px solid transparent;border-top-color:currentColor;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-fiche{text-align:center;padding:40px 20px;color:var(--text2)}
+.loading-fiche .spinner{width:32px;height:32px;margin-bottom:12px}
+
+/* Image Bank View */
+.img-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:12px}
+.img-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;transition:.2s}
+.img-card:hover{border-color:var(--accent)}
+.img-card .img-preview{aspect-ratio:1;background:var(--bg-card2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.img-card .img-preview img{max-width:100%;max-height:100%;object-fit:contain;padding:6px}
+.img-card .img-info{padding:8px 10px}
+.img-card .img-info h4{font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.img-card .img-info .img-cat{font-size:10px;color:var(--text3)}
+
+/* Settings */
+.settings-group{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.settings-group h3{margin-bottom:12px;font-size:18px}
+.settings-group label{display:block;margin-bottom:4px;font-size:13px;color:var(--text2)}
+.settings-group input,.settings-group select{width:100%;padding:10px 14px;background:var(--bg-deep);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:inherit;font-size:14px;margin-bottom:12px;outline:none}
+.settings-group input:focus{border-color:var(--accent)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);max-width:600px;width:100%;max-height:85vh;overflow-y:auto;padding:20px}
+.modal img{width:100%;border-radius:var(--radius-sm)}
+.modal h3{margin-bottom:12px}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeIn .3s ease both}
+
+/* Toast */
+.toast{position:fixed;top:20px;right:20px;background:var(--bg-card);border:1px solid var(--accent);border-radius:var(--radius-sm);padding:12px 20px;z-index:300;font-size:13px;animation:fadeIn .3s ease;max-width:320px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script type="text/babel">
+// ============================================================
+// DATA: 65+ Pathologies
+// ============================================================
+const PATHOLOGIES = [
+  // CARDIOVASCULAIRE
+  {id:"hta",name:"Hypertension artérielle",cat:"Cardiovasculaire",icon:"❤️",tags:["HTA","pression artérielle","SRAA"]},
+  {id:"coronaropathie",name:"Coronaropathie / SCA",cat:"Cardiovasculaire",icon:"❤️",tags:["IDM","angor","troponine","stent"]},
+  {id:"insuffisance-cardiaque",name:"Insuffisance cardiaque",cat:"Cardiovasculaire",icon:"❤️",tags:["IC","FEVG","BNP","dyspnée"]},
+  {id:"fibrillation-auriculaire",name:"Fibrillation auriculaire",cat:"Cardiovasculaire",icon:"❤️",tags:["FA","anticoagulation","CHA2DS2-VASc"]},
+  {id:"avc",name:"AVC ischémique",cat:"Cardiovasculaire",icon:"❤️",tags:["AVC","thrombolyse","thrombectomie","NIHSS"]},
+  {id:"aomi",name:"AOMI",cat:"Cardiovasculaire",icon:"❤️",tags:["artérite","claudication","IPS"]},
+  {id:"tvp",name:"Thrombose veineuse profonde",cat:"Cardiovasculaire",icon:"❤️",tags:["TVP","phlébite","anticoagulant","Wells"]},
+  {id:"embolie-pulmonaire",name:"Embolie pulmonaire",cat:"Cardiovasculaire",icon:"❤️",tags:["EP","D-dimères","angioscanner","urgence"]},
+  {id:"endocardite",name:"Endocardite infectieuse",cat:"Cardiovasculaire",icon:"❤️",tags:["végétations","hémocultures","Duke"]},
+  {id:"pericardite",name:"Péricardite aiguë",cat:"Cardiovasculaire",icon:"❤️",tags:["péricarde","tamponnade","colchicine"]},
+
+  // RESPIRATOIRE
+  {id:"bpco",name:"BPCO",cat:"Respiratoire",icon:"🫁",tags:["tabac","VEMS","exacerbation","GOLD"]},
+  {id:"asthme",name:"Asthme",cat:"Respiratoire",icon:"🫁",tags:["bronchospasme","CSI","GINA","DEP"]},
+  {id:"pneumonie",name:"Pneumonie communautaire",cat:"Respiratoire",icon:"🫁",tags:["pneumocoque","CRB65","antibiothérapie"]},
+  {id:"covid19",name:"COVID-19",cat:"Respiratoire",icon:"🫁",tags:["SARS-CoV-2","vaccination","Paxlovid"]},
+  {id:"grippe",name:"Grippe",cat:"Respiratoire",icon:"🫁",tags:["influenza","oseltamivir","vaccination"]},
+  {id:"saos",name:"Syndrome d'apnées du sommeil",cat:"Respiratoire",icon:"🫁",tags:["SAOS","PPC","IAH","somnolence"]},
+  {id:"pneumothorax",name:"Pneumothorax",cat:"Respiratoire",icon:"🫁",tags:["plèvre","drainage","urgence"]},
+
+  // DIGESTIF
+  {id:"rgo",name:"RGO",cat:"Digestif",icon:"🍽️",tags:["reflux","IPP","hernie hiatale"]},
+  {id:"ulcere",name:"Ulcère gastroduodénal",cat:"Digestif",icon:"🍽️",tags:["H. pylori","IPP","hémorragie digestive"]},
+  {id:"sii",name:"Syndrome de l'intestin irritable",cat:"Digestif",icon:"🍽️",tags:["SII","colopathie","FODMAP"]},
+  {id:"mici",name:"MICI (Crohn / RCH)",cat:"Digestif",icon:"🍽️",tags:["Crohn","RCH","biothérapie","5-ASA"]},
+  {id:"cirrhose",name:"Cirrhose hépatique",cat:"Digestif",icon:"🍽️",tags:["foie","Child-Pugh","ascite","varices"]},
+  {id:"hepatite-b",name:"Hépatite B",cat:"Digestif",icon:"🍽️",tags:["VHB","sérologie","ténofovir"]},
+  {id:"hepatite-c",name:"Hépatite C",cat:"Digestif",icon:"🍽️",tags:["VHC","AAD","sofosbuvir","guérison"]},
+  {id:"lithiase-biliaire",name:"Lithiase biliaire",cat:"Digestif",icon:"🍽️",tags:["calculs","cholécystite","cholécystectomie"]},
+  {id:"pancreatite",name:"Pancréatite aiguë",cat:"Digestif",icon:"🍽️",tags:["lipase","Ranson","jeûne","biliaire"]},
+
+  // NEUROLOGIE
+  {id:"migraine",name:"Migraine",cat:"Neurologie",icon:"🧠",tags:["céphalée","aura","triptan","prophylaxie"]},
+  {id:"epilepsie",name:"Épilepsie",cat:"Neurologie",icon:"🧠",tags:["crise","EEG","antiépileptique","Lennox"]},
+  {id:"parkinson",name:"Maladie de Parkinson",cat:"Neurologie",icon:"🧠",tags:["tremblement","L-DOPA","akinésie","rigidité"]},
+  {id:"alzheimer",name:"Maladie d'Alzheimer",cat:"Neurologie",icon:"🧠",tags:["démence","MMSE","anticholinestérasique"]},
+  {id:"sep",name:"Sclérose en plaques",cat:"Neurologie",icon:"🧠",tags:["SEP","poussée","IRM","interféron"]},
+  {id:"meningite",name:"Méningite bactérienne",cat:"Neurologie",icon:"🧠",tags:["PL","méningocoque","C3G","urgence"]},
+  {id:"neuropathie",name:"Neuropathie périphérique",cat:"Neurologie",icon:"🧠",tags:["EMG","diabète","Guillain-Barré"]},
+
+  // METABOLIQUE / ENDOCRINIEN
+  {id:"diabete-t2",name:"Diabète de type 2",cat:"Métabolique",icon:"🧪",tags:["HbA1c","metformine","iSGLT2","insulinorésistance"]},
+  {id:"diabete-t1",name:"Diabète de type 1",cat:"Métabolique",icon:"🧪",tags:["insuline","acidocétose","auto-immun","GAD"]},
+  {id:"dyslipidemie",name:"Dyslipidémie",cat:"Métabolique",icon:"🧪",tags:["LDL","statine","SCORE2","athérosclérose"]},
+  {id:"hypothyroidie",name:"Hypothyroïdie",cat:"Endocrinien",icon:"🧪",tags:["TSH","lévothyroxine","Hashimoto"]},
+  {id:"hyperthyroidie",name:"Hyperthyroïdie",cat:"Endocrinien",icon:"🧪",tags:["TSH","Basedow","ATS","thyroïdectomie"]},
+  {id:"obesite",name:"Obésité",cat:"Métabolique",icon:"🧪",tags:["IMC","chirurgie bariatrique","GLP-1"]},
+  {id:"goutte",name:"Goutte",cat:"Métabolique",icon:"🧪",tags:["urate","colchicine","allopurinol","tophus"]},
+
+  // PSYCHIATRIE
+  {id:"depression",name:"Épisode dépressif majeur",cat:"Psychiatrie",icon:"🧠",tags:["EDM","ISRS","Hamilton","suicide"]},
+  {id:"anxiete",name:"Trouble anxieux généralisé",cat:"Psychiatrie",icon:"🧠",tags:["TAG","ISRS","TCC","benzodiazépine"]},
+  {id:"bipolaire",name:"Trouble bipolaire",cat:"Psychiatrie",icon:"🧠",tags:["manie","lithium","thymorégulateur"]},
+  {id:"schizophrenie",name:"Schizophrénie",cat:"Psychiatrie",icon:"🧠",tags:["psychose","antipsychotique","négatif","positif"]},
+  {id:"addiction-alcool",name:"Trouble usage alcool",cat:"Psychiatrie",icon:"🧠",tags:["sevrage","baclofène","naltrexone","Cushman"]},
+
+  // RHUMATOLOGIE
+  {id:"pr",name:"Polyarthrite rhumatoïde",cat:"Rhumatologie",icon:"🦴",tags:["PR","FR","anti-CCP","méthotrexate"]},
+  {id:"arthrose",name:"Arthrose",cat:"Rhumatologie",icon:"🦴",tags:["gonarthrose","coxarthrose","prothèse"]},
+  {id:"spondylarthrite",name:"Spondylarthrite ankylosante",cat:"Rhumatologie",icon:"🦴",tags:["SpA","HLA-B27","sacro-iliite","anti-TNF"]},
+  {id:"osteoporose",name:"Ostéoporose",cat:"Rhumatologie",icon:"🦴",tags:["DMO","FRAX","bisphosphonate","fracture"]},
+  {id:"lupus",name:"Lupus érythémateux systémique",cat:"Rhumatologie",icon:"🦴",tags:["LES","ANA","anti-dsDNA","hydroxychloroquine"]},
+  {id:"fibromyalgie",name:"Fibromyalgie",cat:"Rhumatologie",icon:"🦴",tags:["douleur chronique","tender points","prégabaline"]},
+
+  // NEPHROLOGIE
+  {id:"irc",name:"Insuffisance rénale chronique",cat:"Néphrologie",icon:"🫘",tags:["DFG","KDIGO","dialyse","greffe"]},
+  {id:"itu",name:"Infection urinaire",cat:"Néphrologie",icon:"🫘",tags:["cystite","pyélonéphrite","ECBU"]},
+  {id:"lithiase-urinaire",name:"Lithiase urinaire",cat:"Néphrologie",icon:"🫘",tags:["colique néphrétique","oxalate","urgence"]},
+
+  // DERMATOLOGIE
+  {id:"eczema",name:"Dermatite atopique",cat:"Dermatologie",icon:"🩹",tags:["eczéma","dermocorticoïde","émollient"]},
+  {id:"psoriasis",name:"Psoriasis",cat:"Dermatologie",icon:"🩹",tags:["plaques","biothérapie","PASI","méthotrexate"]},
+  {id:"melanome",name:"Mélanome",cat:"Dermatologie",icon:"🩹",tags:["Breslow","ABCDE","immunothérapie"]},
+  {id:"urticaire",name:"Urticaire chronique",cat:"Dermatologie",icon:"🩹",tags:["antihistaminique","omalizumab"]},
+  {id:"zona",name:"Zona",cat:"Dermatologie",icon:"🩹",tags:["VZV","valaciclovir","douleur neuropathique"]},
+
+  // INFECTIEUX
+  {id:"vih",name:"VIH / SIDA",cat:"Infectieux",icon:"🦠",tags:["ARV","charge virale","CD4","PrEP"]},
+  {id:"tuberculose",name:"Tuberculose",cat:"Infectieux",icon:"🦠",tags:["BK","quadrithérapie","IDR","QuantiFERON"]},
+  {id:"sepsis",name:"Sepsis / Choc septique",cat:"Infectieux",icon:"🦠",tags:["qSOFA","lactates","noradrénaline","urgence"]},
+
+  // ONCOLOGIE
+  {id:"cancer-sein",name:"Cancer du sein",cat:"Oncologie",icon:"🎗️",tags:["mammographie","RH+","HER2","chimiothérapie"]},
+  {id:"cancer-poumon",name:"Cancer du poumon",cat:"Oncologie",icon:"🎗️",tags:["CBNPC","CBPC","immunothérapie","TKI"]},
+  {id:"cancer-colon",name:"Cancer colorectal",cat:"Oncologie",icon:"🎗️",tags:["coloscopie","FOLFOX","MSI","dépistage"]},
+  {id:"cancer-prostate",name:"Cancer de la prostate",cat:"Oncologie",icon:"🎗️",tags:["PSA","Gleason","hormonothérapie"]},
+
+  // HEMATOLOGIE
+  {id:"anemie-ferriprive",name:"Anémie ferriprive",cat:"Hématologie",icon:"🩸",tags:["fer","ferritine","carence martiale"]},
+  {id:"anemie-b12",name:"Anémie par carence B12",cat:"Hématologie",icon:"🩸",tags:["Biermer","macrocytaire","cyanocobalamine"]},
+];
+
+// Categories
+const CATEGORIES = [...new Set(PATHOLOGIES.map(p => p.cat))];
+const CAT_ICONS = {"Cardiovasculaire":"❤️","Respiratoire":"🫁","Digestif":"🍽️","Neurologie":"🧠","Métabolique":"🧪","Endocrinien":"🧪","Psychiatrie":"🧠","Rhumatologie":"🦴","Néphrologie":"🫘","Dermatologie":"🩹","Infectieux":"🦠","Oncologie":"🎗️","Hématologie":"🩸"};
+
+// ============================================================
+// GROQ API
+// ============================================================
+const GROQ_MODELS = ["llama-3.3-70b-versatile","llama-3.1-8b-instant","mixtral-8x7b-32768"];
+
+async function callGroq(apiKey, messages, model) {
+  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: {"Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json"},
+    body: JSON.stringify({model: model || GROQ_MODELS[0], messages, temperature: 0.3, max_tokens: 4000})
+  });
+  if (!res.ok) throw new Error(`Groq API error: ${res.status}`);
+  const data = await res.json();
+  return data.choices[0].message.content;
+}
+
+function buildGeneratePrompt(patho) {
+  return `Tu es un médecin expert. Génère une fiche médicale professionnelle complète sur : **${patho.name}**
+
+Réponds UNIQUEMENT en JSON valide (pas de markdown, pas de backticks) avec cette structure exacte :
+{
+  "definition": "Définition complète de la pathologie",
+  "epidemiologie": "Prévalence, incidence, fréquence, terrain",
+  "physiopathologie": "Mécanismes physiopathologiques détaillés, cascade, physiopathologie",
+  "clinique": "Symptômes, signes cliniques, examen physique, complications",
+  "facteurs_risque": "Facteurs de risque modifiables et non modifiables",
+  "diagnostic": "Critères diagnostiques, examens complémentaires (biologie, imagerie), scores, classification",
+  "traitement": "Traitement de 1ère intention, alternatives, non médicamenteux, surveillance, objectifs thérapeutiques. Inclure les dernières recommandations (ESC, HAS, etc.)",
+  "mnemoniques": "2-3 moyens mnémotechniques pour retenir les points clés",
+  "sources": "Guidelines et références principales avec dates"
+}
+
+Sois précis, à jour avec les dernières guidelines. Public cible : médecins praticiens.`;
+}
+
+function buildEnrichPrompt(patho, currentContent) {
+  return `Tu es un médecin expert. Voici une fiche médicale sur **${patho.name}** qui date de quelques mois.
+
+FICHE ACTUELLE :
+${JSON.stringify(currentContent, null, 2)}
+
+Enrichis cette fiche avec :
+- Nouvelles recommandations ou guidelines parues récemment
+- Nouveaux traitements approuvés ou études marquantes
+- Corrections si certaines informations sont obsolètes
+- Précisions supplémentaires utiles
+
+IMPORTANT : Garde la même structure JSON. Conserve le contenu existant et AJOUTE les nouveautés (ne supprime rien sauf si obsolète). Réponds UNIQUEMENT en JSON valide (pas de markdown, pas de backticks).`;
+}
+
+// ============================================================
+// STORAGE
+// ============================================================
+const STORAGE_KEY = "medref_fiches";
+const SETTINGS_KEY = "medref_settings";
+
+function loadFiches() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function saveFiche(id, content) {
+  const all = loadFiches();
+  all[id] = { ...content, lastUpdate: new Date().toISOString() };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+}
+function loadSettings() {
+  try { return JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch { return {}; }
+}
+function saveSettings(s) { localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)); }
+
+function isOutdated(fiche) {
+  if (!fiche || !fiche.lastUpdate) return true;
+  const months = (Date.now() - new Date(fiche.lastUpdate).getTime()) / (1000*60*60*24*30);
+  return months > 6;
+}
+
+// ============================================================
+// IMAGE BANK DATA (compact)
+// ============================================================
+const IMAGE_BANK = {
+  cardiovasculaire: [
+    {id:"C01",name:"Cœur anatomie",file:"Diagram_of_the_human_heart_(cropped).svg"},
+    {id:"C02",name:"Cœur en systole",file:"Heart_systole.svg"},
+    {id:"C03",name:"Système conduction",file:"Conductionsystemoftheheart.png"},
+    {id:"C04",name:"Circulation coronaire",file:"Coronary_arteries.svg"},
+    {id:"C05",name:"ECG normal",file:"SinusRhythmLabels.svg"},
+    {id:"C06",name:"Fibrillation auriculaire ECG",file:"Afib_ecg.jpg"},
+    {id:"C07",name:"Athérosclérose stades",file:"Endo_dysfunction_Ede.jpg"},
+  ],
+  respiratoire: [
+    {id:"R01",name:"Poumons anatomie",file:"Lungs_diagram_detailed.svg"},
+    {id:"R02",name:"Arbre bronchique",file:"Illu_bronchi_lungs.jpg"},
+    {id:"R03",name:"Alvéoles",file:"Alveolus_diagram.svg"},
+  ],
+  neurologie: [
+    {id:"N01",name:"Cerveau anatomie",file:"Human_brain_NIH.png"},
+    {id:"N02",name:"Lobes cérébraux",file:"Brain_lobes.svg"},
+    {id:"N03",name:"Système nerveux",file:"Nervous_system_diagram-en.svg"},
+  ],
+  musculosquelettique: [
+    {id:"MSK01",name:"Épaule articulation",file:"Shoulder_joint.svg"},
+    {id:"MSK02",name:"Coiffe rotateurs",file:"Rotator_cuff_muscles.svg"},
+    {id:"MSK03",name:"Genou anatomie",file:"Knee_diagram.svg"},
+    {id:"MSK04",name:"Hanche",file:"Hip_joint.svg"},
+  ]
+};
+
+// ============================================================
+// REACT APP
+// ============================================================
+const { useState, useEffect, useCallback, useRef } = React;
+
+function App() {
+  const [view, setView] = useState("home"); // home | fiche | images | settings
+  const [selectedPatho, setSelectedPatho] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeCat, setActiveCat] = useState(null);
+  const [fiches, setFiches] = useState(loadFiches());
+  const [settings, setSettings] = useState(loadSettings());
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  const showToast = (msg, dur=3000) => { setToast(msg); setTimeout(()=>setToast(null), dur); };
+
+  const openFiche = (patho) => { setSelectedPatho(patho); setView("fiche"); };
+  const goHome = () => { setView("home"); setSelectedPatho(null); };
+
+  const generateFiche = async (patho) => {
+    if (!settings.groqKey) { showToast("⚠️ Configure ta clé API Groq dans Réglages"); return; }
+    setLoading(true);
+    try {
+      const prompt = buildGeneratePrompt(patho);
+      const result = await callGroq(settings.groqKey, [{role:"user",content:prompt}], settings.groqModel);
+      const parsed = JSON.parse(result.replace(/```json\n?/g,"").replace(/```\n?/g,"").trim());
+      saveFiche(patho.id, parsed);
+      setFiches(loadFiches());
+      showToast("✅ Fiche générée !");
+    } catch (e) {
+      console.error(e);
+      showToast("❌ Erreur : " + e.message);
+    }
+    setLoading(false);
+  };
+
+  const enrichFiche = async (patho) => {
+    if (!settings.groqKey) { showToast("⚠️ Configure ta clé API Groq dans Réglages"); return; }
+    const current = fiches[patho.id];
+    if (!current) return generateFiche(patho);
+    setLoading(true);
+    try {
+      const prompt = buildEnrichPrompt(patho, current);
+      const result = await callGroq(settings.groqKey, [{role:"user",content:prompt}], settings.groqModel);
+      const parsed = JSON.parse(result.replace(/```json\n?/g,"").replace(/```\n?/g,"").trim());
+      saveFiche(patho.id, parsed);
+      setFiches(loadFiches());
+      showToast("✅ Fiche enrichie !");
+    } catch (e) {
+      console.error(e);
+      showToast("❌ Erreur enrichissement : " + e.message);
+    }
+    setLoading(false);
+  };
+
+  const generateAll = async () => {
+    if (!settings.groqKey) { showToast("⚠️ Configure ta clé API Groq"); return; }
+    const missing = PATHOLOGIES.filter(p => !fiches[p.id]);
+    if (missing.length === 0) { showToast("Toutes les fiches sont déjà générées !"); return; }
+    showToast(`Génération de ${missing.length} fiches... Cela peut prendre quelques minutes.`);
+    for (const p of missing) {
+      try {
+        await generateFiche(p);
+        await new Promise(r => setTimeout(r, 1200)); // rate limit
+      } catch {}
+    }
+    showToast(`✅ Terminé !`);
+  };
+
+  // Filter pathologies
+  const filtered = PATHOLOGIES.filter(p => {
+    if (activeCat && p.cat !== activeCat) return false;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      return p.name.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q)) || p.cat.toLowerCase().includes(q);
+    }
+    return true;
+  });
+
+  return (
+    <div className="app">
+      {toast && <div className="toast">{toast}</div>}
+
+      {/* HEADER */}
+      <div className="header">
+        <div className="logo">MedRef Pro <span>Fiches Médicales</span></div>
+      </div>
+
+      {/* HOME VIEW */}
+      {view === "home" && (
+        <div className="fade-in">
+          <div className="search-wrap">
+            <span className="search-icon">🔍</span>
+            <input placeholder="Rechercher une pathologie, tag..." value={searchQuery} onChange={e=>setSearchQuery(e.target.value)} />
+          </div>
+
+          <div className="chips">
+            <div className={`chip ${!activeCat?"active":""}`} onClick={()=>setActiveCat(null)}>
+              Toutes <span className="count">{PATHOLOGIES.length}</span>
+            </div>
+            {CATEGORIES.map(cat => (
+              <div key={cat} className={`chip ${activeCat===cat?"active":""}`} onClick={()=>setActiveCat(cat)}>
+                {CAT_ICONS[cat]} {cat} <span className="count">{PATHOLOGIES.filter(p=>p.cat===cat).length}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Stats bar */}
+          <div style={{display:"flex",gap:12,margin:"12px 0",flexWrap:"wrap",alignItems:"center"}}>
+            <span style={{fontSize:12,color:"var(--text2)"}}>
+              {Object.keys(fiches).length}/{PATHOLOGIES.length} fiches générées
+            </span>
+            {settings.groqKey && Object.keys(fiches).length < PATHOLOGIES.length && (
+              <button className="btn btn-primary btn-sm" onClick={generateAll} disabled={loading}>
+                {loading ? <span className="spinner"/> : "⚡"} Générer toutes les fiches
+              </button>
+            )}
+            {!settings.groqKey && (
+              <button className="btn btn-secondary btn-sm" onClick={()=>setView("settings")}>
+                🔑 Configurer API Groq
+              </button>
+            )}
+          </div>
+
+          <div className="cards">
+            {filtered.map((p,i) => {
+              const f = fiches[p.id];
+              const status = f ? (isOutdated(f) ? "outdated" : "generated") : "pending";
+              return (
+                <div key={p.id} className="patho-card fade-in" style={{animationDelay:`${i*30}ms`}} onClick={()=>openFiche(p)}>
+                  <div className={`status ${status}`} title={status==="generated"?"À jour":status==="outdated"?"Mise à jour recommandée":"Non générée"}/>
+                  <div className="cat-icon">{p.icon}</div>
+                  <h3>{p.name}</h3>
+                  <div className="cat-label">{p.cat}</div>
+                  <div className="tags">
+                    {p.tags.slice(0,4).map(t => <span key={t} className="tag">{t}</span>)}
+                  </div>
+                  {f && <div style={{fontSize:10,color:"var(--text3)",marginTop:6}}>
+                    MAJ : {new Date(f.lastUpdate).toLocaleDateString("fr")}
+                  </div>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* FICHE VIEW */}
+      {view === "fiche" && selectedPatho && (
+        <FicheView
+          patho={selectedPatho}
+          fiche={fiches[selectedPatho.id]}
+          onBack={goHome}
+          onGenerate={()=>generateFiche(selectedPatho)}
+          onEnrich={()=>enrichFiche(selectedPatho)}
+          loading={loading}
+        />
+      )}
+
+      {/* IMAGES VIEW */}
+      {view === "images" && (
+        <div className="fade-in">
+          <h2 style={{margin:"16px 0"}}>🖼️ Banque d'Images</h2>
+          <p style={{fontSize:13,color:"var(--text2)",marginBottom:16}}>
+            Images médicales Wikimedia Commons & Servier Medical Art
+          </p>
+          {Object.entries(IMAGE_BANK).map(([cat, imgs]) => (
+            <div key={cat} style={{marginBottom:20}}>
+              <h3 style={{fontSize:16,marginBottom:8,textTransform:"capitalize"}}>{cat}</h3>
+              <div className="img-grid">
+                {imgs.map(img => (
+                  <div key={img.id} className="img-card">
+                    <div className="img-preview">
+                      <img src={`https://commons.wikimedia.org/wiki/Special:FilePath/${img.file}?width=300`} alt={img.name} loading="lazy"
+                        onError={e=>{e.target.style.display="none";e.target.parentNode.innerHTML=`<span style="color:var(--text3);font-size:12px">⚠️ Image</span>`}} />
+                    </div>
+                    <div className="img-info">
+                      <h4>{img.name}</h4>
+                      <div className="img-cat">{cat}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* SETTINGS VIEW */}
+      {view === "settings" && (
+        <div className="fade-in">
+          <h2 style={{margin:"16px 0"}}>⚙️ Réglages</h2>
+          
+          <div className="settings-group">
+            <h3>🔑 API Groq</h3>
+            <p style={{fontSize:12,color:"var(--text2)",marginBottom:12}}>
+              Nécessaire pour générer et enrichir les fiches. Obtiens ta clé sur <a href="https://console.groq.com" target="_blank">console.groq.com</a> (gratuit).
+            </p>
+            <label>Clé API Groq</label>
+            <input type="password" value={settings.groqKey||""} placeholder="gsk_..." 
+              onChange={e=>{const s={...settings,groqKey:e.target.value};setSettings(s);saveSettings(s)}} />
+            <label>Modèle</label>
+            <select value={settings.groqModel||GROQ_MODELS[0]} onChange={e=>{const s={...settings,groqModel:e.target.value};setSettings(s);saveSettings(s)}}>
+              {GROQ_MODELS.map(m => <option key={m} value={m}>{m}</option>)}
+            </select>
+          </div>
+
+          <div className="settings-group">
+            <h3>📊 Données</h3>
+            <p style={{fontSize:13,color:"var(--text2)",marginBottom:12}}>
+              {Object.keys(fiches).length} fiches stockées localement
+            </p>
+            <button className="btn btn-secondary btn-sm" style={{marginRight:8}} onClick={()=>{
+              const blob = new Blob([JSON.stringify(fiches,null,2)],{type:"application/json"});
+              const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="medref-fiches-export.json";a.click();
+              showToast("✅ Export téléchargé");
+            }}>💾 Exporter fiches (JSON)</button>
+            <button className="btn btn-secondary btn-sm" onClick={()=>{
+              if(confirm("Supprimer toutes les fiches stockées ?")) {
+                localStorage.removeItem(STORAGE_KEY);
+                setFiches({});
+                showToast("🗑️ Fiches supprimées");
+              }
+            }}>🗑️ Réinitialiser</button>
+          </div>
+
+          <div className="settings-group">
+            <h3>ℹ️ À propos</h3>
+            <p style={{fontSize:13,color:"var(--text2)"}}> 
+              <strong>MedRef Pro</strong> — Application de fiches médicales professionnelles.<br/>
+              {PATHOLOGIES.length} pathologies couvrant {CATEGORIES.length} spécialités.<br/>
+              Fiches générées par IA (Groq/Llama) et enrichies tous les 6 mois.<br/>
+              Images : Wikimedia Commons (CC BY) + Servier Medical Art (CC BY 4.0).
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* BOTTOM NAV */}
+      <div className="bottom-nav">
+        <button className={`nav-btn ${view==="home"?"active":""}`} onClick={goHome}>
+          <span className="icon">📋</span>Fiches
+        </button>
+        <button className={`nav-btn ${view==="images"?"active":""}`} onClick={()=>setView("images")}>
+          <span className="icon">🖼️</span>Images
+        </button>
+        <button className={`nav-btn ${view==="settings"?"active":""}`} onClick={()=>setView("settings")}>
+          <span className="icon">⚙️</span>Réglages
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
+// FICHE VIEW COMPONENT
+// ============================================================
+function FicheView({ patho, fiche, onBack, onGenerate, onEnrich, loading }) {
+  const [openSections, setOpenSections] = useState({def:true,epi:true,physio:true,clin:true,diag:true,ttt:true,mnem:true,src:false,fr:false});
+  const toggle = (k) => setOpenSections(prev => ({...prev,[k]:!prev[k]}));
+
+  const sections = [
+    {key:"def",icon:"📖",title:"Définition",field:"definition"},
+    {key:"epi",icon:"📊",title:"Épidémiologie",field:"epidemiologie"},
+    {key:"physio",icon:"⚙️",title:"Physiopathologie",field:"physiopathologie"},
+    {key:"clin",icon:"🩺",title:"Clinique",field:"clinique"},
+    {key:"fr",icon:"⚠️",title:"Facteurs de risque",field:"facteurs_risque"},
+    {key:"diag",icon:"🔬",title:"Diagnostic",field:"diagnostic"},
+    {key:"ttt",icon:"💊",title:"Traitement",field:"traitement"},
+    {key:"mnem",icon:"🧠",title:"Mnémotechniques",field:"mnemoniques"},
+    {key:"src",icon:"📚",title:"Sources & Guidelines",field:"sources"},
+  ];
+
+  return (
+    <div className="fade-in">
+      <div className="fiche-header">
+        <button className="back" onClick={onBack}>←</button>
+        <div>
+          <div className="fiche-title">{patho.name}</div>
+          <div className="fiche-meta">
+            <span className="badge cat">{patho.icon} {patho.cat}</span>
+            {fiche && <span className={`badge ${isOutdated(fiche)?"outdated":"date"}`}>
+              {isOutdated(fiche) ? "⚠️ " : ""}MAJ : {new Date(fiche.lastUpdate).toLocaleDateString("fr")}
+            </span>}
+          </div>
+        </div>
+      </div>
+
+      {/* Generate / Enrich bar */}
+      <div className="generate-bar">
+        {!fiche && !loading && (
+          <button className="btn btn-primary" onClick={onGenerate}>
+            ⚡ Générer cette fiche
+          </button>
+        )}
+        {fiche && isOutdated(fiche) && !loading && (
+          <button className="btn btn-warning" onClick={onEnrich}>
+            🔄 Enrichir (fiche &gt; 6 mois)
+          </button>
+        )}
+        {fiche && !isOutdated(fiche) && !loading && (
+          <button className="btn btn-secondary btn-sm" onClick={onEnrich}>
+            🔄 Forcer la mise à jour
+          </button>
+        )}
+        {loading && (
+          <div className="loading-fiche">
+            <div className="spinner" style={{borderTopColor:"var(--accent)"}}/>
+            <p>Génération en cours via Groq...</p>
+          </div>
+        )}
+      </div>
+
+      {/* Fiche Content */}
+      {fiche && !loading && (
+        <div>
+          {sections.map(s => {
+            const content = fiche[s.field];
+            if (!content) return null;
+            return (
+              <div key={s.key} className="fiche-section">
+                <div className="fiche-section-header" onClick={()=>toggle(s.key)}>
+                  <span className="section-icon">{s.icon}</span>
+                  <h3>{s.title}</h3>
+                  <span className={`chevron ${openSections[s.key]?"open":""}`}>▼</span>
+                </div>
+                {openSections[s.key] && (
+                  <div className="fiche-section-body">
+                    <FicheContent text={content} isMnemonic={s.key==="mnem"} />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          
+          {/* Tags */}
+          <div style={{display:"flex",flexWrap:"wrap",gap:6,margin:"16px 0"}}>
+            {patho.tags.map(t => <span key={t} style={{padding:"4px 12px",borderRadius:12,background:"var(--bg-card2)",fontSize:12,color:"var(--text2)"}}>{t}</span>)}
+          </div>
+        </div>
+      )}
+
+      {!fiche && !loading && (
+        <div style={{textAlign:"center",padding:"60px 20px",color:"var(--text3)"}}>
+          <div style={{fontSize:48,marginBottom:12}}>📋</div>
+          <p>Cette fiche n'a pas encore été générée.</p>
+          <p style={{fontSize:13,marginTop:8}}>Configure ta clé API Groq dans les réglages, puis clique sur "Générer".</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Format fiche content with basic markdown-like rendering
+function FicheContent({ text, isMnemonic }) {
+  if (!text) return null;
+  // Split by newlines and render
+  const lines = text.split("\n").filter(l => l.trim());
+  return (
+    <div>
+      {lines.map((line, i) => {
+        const trimmed = line.trim();
+        if (isMnemonic) return <div key={i} className="mnemonic">{trimmed}</div>;
+        if (trimmed.startsWith("- ") || trimmed.startsWith("• ")) {
+          return <div key={i} style={{paddingLeft:16,position:"relative",marginBottom:4}}>
+            <span style={{position:"absolute",left:0,color:"var(--accent)"}}>•</span>
+            <span dangerouslySetInnerHTML={{__html:formatBold(trimmed.slice(2))}} />
+          </div>;
+        }
+        if (trimmed.startsWith("**") || trimmed.match(/^#+\s/)) {
+          const clean = trimmed.replace(/^#+\s/,"").replace(/\*\*/g,"");
+          return <p key={i}><strong style={{color:"var(--text)"}}>{clean}</strong></p>;
+        }
+        return <p key={i} dangerouslySetInnerHTML={{__html:formatBold(trimmed)}} />;
+      })}
+    </div>
+  );
+}
+
+function formatBold(text) {
+  return text.replace(/\*\*(.+?)\*\*/g, '<strong style="color:var(--text)">$1</strong>');
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
